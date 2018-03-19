@@ -1,9 +1,11 @@
-package example.mathias.contactinformation;
+package example.mathias.contactinformation.Controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class FriendsListActivity extends AppCompatActivity {
+import example.mathias.contactinformation.R;
+
+public class ContactListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
