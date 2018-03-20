@@ -42,6 +42,8 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     public class RecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mName;
         private ImageView mImage;
+        private TextView mPhoneNumber;
+
         private ContactBE mContact;
 
         public RecycleHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -50,6 +52,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
             mName = itemView.findViewById(R.id.txtName);
             mImage = itemView.findViewById(R.id.imgView);
+            mPhoneNumber = itemView.findViewById(R.id.txtPhone);
         }
 
         public void bind(ContactBE contact) {
@@ -58,6 +61,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             InputStream imageStream = itemView.getResources().openRawResource(R.raw.monkey);
             Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
             mImage.setImageBitmap(bitmap);
+            mPhoneNumber.setText(mContact.getPhoneNumber());
         }
 
         @Override

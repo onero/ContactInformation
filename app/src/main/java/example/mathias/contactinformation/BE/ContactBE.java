@@ -20,8 +20,9 @@ public class ContactBE {
     public Date mBirthDay;
     public Image mPicture;
 
-    public ContactBE(String name) {
+    public ContactBE(String name, String phoneNumber) {
         mName = name;
+        mPhoneNumber = phoneNumber;
     }
 
 
@@ -32,4 +33,14 @@ public class ContactBE {
     public void setName(String name) {
         mName = name;
     }
+
+    public String getPhoneNumber() {
+        return mPhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        mPhoneNumber = phoneNumber;
+    }
+
+
 }

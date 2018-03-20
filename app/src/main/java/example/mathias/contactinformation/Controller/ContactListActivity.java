@@ -29,8 +29,8 @@ public class ContactListActivity extends AppCompatActivity {
 
         final List<ContactBE> contacts = new ArrayList<>();
 
-        for (int i = 1; i <= 10; i++) {
-            contacts.add(new ContactBE("Person: " + i));
+        for (int i = 1; i <= 9; i++) {
+            contacts.add(new ContactBE("Person: " + i, "00 00 00 0" + i));
         }
 
         mContactModel.setContacts(contacts);

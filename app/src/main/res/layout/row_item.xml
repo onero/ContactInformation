@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -9,11 +10,11 @@
         android:id="@+id/txtName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="Name"
         app:layout_constraintStart_toEndOf="@+id/imgView"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgView"
@@ -23,6 +24,16 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on"/>
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <TextView
+        android:id="@+id/txtPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Phone Number"
+        app:layout_constraintStart_toEndOf="@+id/txtName"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
