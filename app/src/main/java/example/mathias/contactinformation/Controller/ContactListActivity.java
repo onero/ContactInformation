@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,4 +44,12 @@ public class ContactListActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.contacts_list, menu);
+        return true;
+    }
+
 }
