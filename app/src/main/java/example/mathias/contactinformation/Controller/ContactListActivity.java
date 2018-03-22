@@ -1,5 +1,6 @@
 package example.mathias.contactinformation.Controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,17 +59,22 @@ public class ContactListActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.btn_new_contact:
-                newGame();
+//                newGame();
                 return true;
             case R.id.btn_sort_list:
-                showHelp();
+//                showHelp();
                 return true;
             case R.id.btn_map:
-                showHelp();
+                map();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void map() {
+        Intent intent = new Intent(ContactListActivity.this, MapsActivity.class);
+        startActivity(intent);
     }
 
 }
