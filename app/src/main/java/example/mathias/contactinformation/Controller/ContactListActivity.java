@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,24 @@ public class ContactListActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.contacts_list, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.btn_new_contact:
+                newGame();
+                return true;
+            case R.id.btn_sort_list:
+                showHelp();
+                return true;
+            case R.id.btn_map:
+                showHelp();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

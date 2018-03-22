@@ -7,12 +7,12 @@
         android:title="@string/new_contact"
         app:showAsAction="ifRoom|withText"/>
     <item
-        android:id="@+id/new_contact"
+        android:id="@+id/btn_new_contact"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/new_contact"
         app:showAsAction="ifRoom|withText"/>
     <item
-        android:id="@+id/sort_list"
+        android:id="@+id/btn_sort_list"
         android:icon="@android:drawable/arrow_down_float"
         android:title="@string/sort_list"
         app:showAsAction="ifRoom|withText"/>
