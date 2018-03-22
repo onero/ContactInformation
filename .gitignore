@@ -164,6 +164,8 @@ fabric.properties
 ### Java ###
 # Compiled class file
 
+app/src/main/res/values/secrets.xml
+
 # Log file
 
 # BlueJ files
@@ -181,3 +183,4 @@ fabric.properties
 
 
 # End of https://www.gitignore.io/api/java,android,androidstudio
+app/src/main/res/values/secrets.xml
