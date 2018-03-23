@@ -155,11 +155,11 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        // Gets the current location if permissions is granted.
+
         // Type of map
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
-
+        // Gets the current location if permissions is granted.
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
