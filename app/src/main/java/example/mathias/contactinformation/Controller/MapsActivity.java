@@ -2,6 +2,8 @@ package example.mathias.contactinformation.Controller;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -11,6 +13,9 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,6 +32,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.List;
+
 import example.mathias.contactinformation.R;
 
 
@@ -38,13 +46,15 @@ public class MapsActivity extends FragmentActivity
 
     private final String CURRENT_LOCATION = "Current location";
     private final String PERMISSION_DENIED = "Permission denied..!";
-    private final int ZOOM_AREA = 10;
+    private final int ZOOM_AREA = 11;
     public static final int REQUEST_LOCATION_CODE = 99;
 
     private GoogleMap mMap;
     private GoogleApiClient mClient;
     private LocationRequest mLocationRequest;
     private Location mLastLocation;
+    private Button mBtnSearch;
+    private EditText mTxtAddress, mTxtFriend;
 
     private Marker mCurrentLocationMarker;
 
@@ -62,6 +72,52 @@ public class MapsActivity extends FragmentActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    // Search for an address and adds a title to the marker.
+    public void onClick(View view) {
+        if (view.getId() == R.id.btnSearch) {
+
+            mTxtAddress = findViewById(R.id.txtAddress);
+            mTxtFriend = findViewById(R.id.txtFriend);
+
+            String location = mTxtAddress.getText().toString();
+            String friendMarker = mTxtFriend.getText().toString();
+
+            MarkerOptions markerOptions = new MarkerOptions();
+
+            List<Address> addressList = null;
+
+            // Don't search if nothing is in the string.
+            if (!location.equals("")) {
+                Geocoder geocoder = new Geocoder(this);
+
+                // Takes two attributes locationName and maxResults.
+                try {
+                    addressList = geocoder.getFromLocationName(location, 5);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                // Checks the size of the addressList.
+                for (int i = 0; i < addressList.size() ; i++) {
+                    Address myAddress = addressList.get(i);
+                    // For each address i want to get the LatLng.
+                    LatLng latLng = new LatLng(myAddress.getLatitude(), myAddress.getLongitude());
+                    // Sets the marker.
+                    markerOptions.position(latLng);
+
+                    // Sets a title on the marker. Either the FriendName or Address.
+                    if (friendMarker.equals("")) {
+                        markerOptions.title(location);
+                    } else {
+                        markerOptions.title(friendMarker);
+                    }
+
+                    mMap.addMarker(markerOptions);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                }
+            }
+        }
     }
 
     // To handle request permissions. (If granted or not).
@@ -99,7 +155,7 @@ public class MapsActivity extends FragmentActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        // Gets the current location if permissions is granted.
         // Type of map
         googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 
