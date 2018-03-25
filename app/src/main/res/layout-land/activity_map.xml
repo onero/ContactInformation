@@ -7,12 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout2">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/txtAddress"
@@ -31,14 +27,14 @@
                 android:ems="10"
                 android:hint="Title for the address"
                 android:inputType="textPersonName" />
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/btnSearch"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:onClick="onClick"
-            android:text="Search" />
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="onClick"
+                android:text="Search" />
 
 
     </LinearLayout>
@@ -50,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/linearLayout"
+        android:layout_below="@+id/linearLayout2"
         tools:context="example.mathias.contactinformation.Controller.MapsActivity" />
 
 
