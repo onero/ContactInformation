@@ -1,7 +1,9 @@
 package example.mathias.contactinformation.Controller;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.mathias.contactinformation.BE.ContactBE;
+import example.mathias.contactinformation.DAL.database.ContactBaseHelper;
 import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
@@ -22,6 +25,14 @@ public class ContactListActivity extends AppCompatActivity {
     private ContactModel mContactModel = ContactModel.getInstance();
 
     public static Dialog myDialog;
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
+
+    public ContactListActivity(Context context) {
+        mContext = context.getApplicationContext();
+        mDatabase = new ContactBaseHelper(mContext)
+                .getWritableDatabase();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

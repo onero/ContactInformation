@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class ContactBE {
 
+    public String uuid;
     public String mName;
     public String mAddress;
     public Location mLocation;
