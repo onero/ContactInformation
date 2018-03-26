@@ -28,7 +28,8 @@ import static example.mathias.contactinformation.Controller.ContactListActivity.
 
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.RecycleHolder> {
 
-    private LinearLayout txtClose, txtCall, txtSms, txtMail, txtWeb, txtDirection;
+    private TextView txtClose, txtName;
+    private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
 
     private ContactModel mContactModel = ContactModel.getInstance();
 
@@ -53,7 +54,6 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
         private TextView mName;
         private ImageView mImage;
         private TextView mPhoneNumber;
-
         private ContactBE mContact;
 
         public RecycleHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -76,14 +76,14 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), mContact.getName(), Toast.LENGTH_SHORT).show();
-            ShowPopUp(v);
+            ShowPopUp(v, mContact);
         }
     }
 
 
     // Calls the details popup menu.
-    public void ShowPopUp(View view) {
+    public void ShowPopUp(View view, ContactBE contact) {
+
         myDialog.setContentView(R.layout.details_pop_up);
         txtClose = myDialog.findViewById(R.id.txtClose);
         txtCall = myDialog.findViewById(R.id.txtCall);
@@ -91,7 +91,9 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
         txtMail = myDialog.findViewById(R.id.txtMail);
         txtWeb = myDialog.findViewById(R.id.txtWeb);
         txtDirection = myDialog.findViewById(R.id.txtDirection);
+        txtName = myDialog.findViewById(R.id.txtName);
 
+        txtName.setText(contact.getName());
         txtClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

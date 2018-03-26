@@ -27,7 +27,6 @@ public class ContactListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         myDialog = new Dialog(this);
-
         /**
          * Recyclerview
          */
