@@ -1,5 +1,6 @@
 package example.mathias.contactinformation.Controller;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +21,12 @@ public class ContactListActivity extends AppCompatActivity {
 
     private ContactModel mContactModel = ContactModel.getInstance();
 
+    public static Dialog myDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDialog = new Dialog(this);
 
         /**
          * Recyclerview
