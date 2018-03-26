@@ -27,7 +27,7 @@ import static example.mathias.contactinformation.Controller.ContactListActivity.
 
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.RecycleHolder> {
 
-    private TextView txtClose, txtCall;
+    private TextView txtClose, txtCall, txtSms, txtMail, txtWeb, txtDirection;
 
     private ContactModel mContactModel = ContactModel.getInstance();
 
@@ -86,6 +86,10 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
         myDialog.setContentView(R.layout.details_pop_up);
         txtClose = myDialog.findViewById(R.id.txtClose);
         txtCall = myDialog.findViewById(R.id.txtCall);
+        txtSms = myDialog.findViewById(R.id.txtSms);
+        txtMail = myDialog.findViewById(R.id.txtMail);
+        txtWeb = myDialog.findViewById(R.id.txtWeb);
+        txtDirection = myDialog.findViewById(R.id.txtDirection);
 
         txtClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +98,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             }
         });
 
+        // CALL
         txtCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +106,48 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
                 Log.d("CALL", "det virker!");
             }
         });
+
+        // SMS
+        txtSms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "SMSing...", Toast.LENGTH_LONG).show();
+                Log.d("CALL", "det virker!");
+            }
+        });
+
+        // MAILING
+        txtMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Mailing...", Toast.LENGTH_LONG).show();
+                Log.d("CALL", "det virker!");
+            }
+        });
+
+        // WEBSITE
+        txtWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Visiting website...", Toast.LENGTH_LONG).show();
+                Log.d("CALL", "det virker!");
+            }
+        });
+
+        // GET DIRECTION
+        txtDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Getting direction...", Toast.LENGTH_LONG).show();
+                Log.d("CALL", "det virker!");
+            }
+        });
+
+
+
+
+
+
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
 
