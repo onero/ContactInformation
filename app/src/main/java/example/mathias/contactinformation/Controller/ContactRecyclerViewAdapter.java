@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import static example.mathias.contactinformation.Controller.ContactListActivity.
 
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.RecycleHolder> {
 
-    private TextView txtClose, txtCall, txtSms, txtMail, txtWeb, txtDirection;
+    private LinearLayout txtClose, txtCall, txtSms, txtMail, txtWeb, txtDirection;
 
     private ContactModel mContactModel = ContactModel.getInstance();
 
