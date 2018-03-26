@@ -30,8 +30,11 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
     private TextView txtClose, txtName;
     private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
+    private ContactModel mContactModel;
 
-    private ContactModel mContactModel = ContactModel.getInstance();
+    public ContactRecyclerViewAdapter(ContactModel contactModel) {
+        mContactModel = contactModel;
+    }
 
     @Override
     public RecycleHolder onCreateViewHolder(ViewGroup parent, int viewType) {

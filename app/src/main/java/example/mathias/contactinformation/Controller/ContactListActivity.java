@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,51 +13,40 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 import example.mathias.contactinformation.BE.ContactBE;
-import example.mathias.contactinformation.DAL.database.ContactBaseHelper;
+import example.mathias.contactinformation.Database.ContactBaseHelper;
 import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
 public class ContactListActivity extends AppCompatActivity {
 
-    private ContactModel mContactModel = ContactModel.getInstance();
-
     public static Dialog myDialog;
     private Context mContext;
     private SQLiteDatabase mDatabase;
-
-    public ContactListActivity(Context context) {
-        mContext = context.getApplicationContext();
-        mDatabase = new ContactBaseHelper(mContext)
-                .getWritableDatabase();
-    }
+    private ContactRecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        mContext = this;
+        mDatabase = new ContactBaseHelper(mContext)
+                .getWritableDatabase();
+
         super.onCreate(savedInstanceState);
-        myDialog = new Dialog(this);
+        myDialog = new Dialog(mContext);
         /**
          * Recyclerview
          */
         setContentView(R.layout.activity_main_recycler);
-        final RecyclerView recyclerView = findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        final List<ContactBE> contacts = new ArrayList<>();
-
-        for (int i = 1; i <= 9; i++) {
-            contacts.add(new ContactBE("Person: " + i, "00 00 00 0" + i));
-        }
-
-        mContactModel.setContacts(contacts);
+        recyclerView = findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
         /**
          * Incredible recyclerview adapter
          */
-        ContactRecyclerViewAdapter adapter = new ContactRecyclerViewAdapter();
+        adapter = new ContactRecyclerViewAdapter(ContactModel.get(mContext));
 
         recyclerView.setAdapter(adapter);
     }
@@ -73,7 +63,7 @@ public class ContactListActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.btn_new_contact:
-//                newGame();
+                addContact();
                 return true;
             case R.id.btn_sort_list:
 //                showHelp();
@@ -86,9 +76,17 @@ public class ContactListActivity extends AppCompatActivity {
         }
     }
 
+    private void addContact() {
+
+        ContactBE contactToAdd = new ContactBE();
+        contactToAdd.setName("Mathias");
+        ContactModel.get(mContext).addContact(contactToAdd);
+        adapter.notifyDataSetChanged();
+        recyclerView.scrollToPosition(ContactModel.get(mContext).getContacts().size() - 1);
+    }
+
     private void map() {
         Intent intent = new Intent(ContactListActivity.this, MapsActivity.class);
         startActivity(intent);
     }
-
 }
