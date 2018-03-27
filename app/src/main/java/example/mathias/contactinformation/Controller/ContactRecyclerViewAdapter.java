@@ -28,34 +28,70 @@ import static example.mathias.contactinformation.Controller.ContactListActivity.
 
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.RecycleHolder> {
 
+    // Variables for assigning data.
     private TextView txtClose, txtName;
     private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
 
-    private ContactModel mContactModel = ContactModel.getInstance();
+    // Stored Model from the outside.
+    private ContactModel mContactModel;
 
+    /**
+     * Constructor for getting the model from the outside.
+     * @param contactModel
+     */
+    public ContactRecyclerViewAdapter(ContactModel contactModel) {
+        mContactModel = contactModel;
+    }
+
+    /**
+     * Creates the Holder for the RecycleView.
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public RecycleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         return new RecycleHolder(layoutInflater, parent);
     }
 
+    /**
+     * Binds the holder to a ContactBE.
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(RecycleHolder holder, int position) {
         ContactBE contact = mContactModel.getContacts().get(position);
         holder.bind(contact);
     }
 
+    /**
+     * Gets the Amount of Contacts from the model.
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mContactModel.getContacts().size();
     }
 
+    /**
+     * Inner class for each row in RecyclerView.
+     */
     public class RecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mName;
+
+        // Xml Components.
+        private TextView mName, mPhoneNumber;
         private ImageView mImage;
-        private TextView mPhoneNumber;
+
+        // The contact to bind.
         private ContactBE mContact;
 
+        /**
+         * Constructor for instantiation and inflation of the views.
+         * @param inflater
+         * @param parent
+         */
         public RecycleHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.row_item, parent, false));
             itemView.setOnClickListener(this);
@@ -65,6 +101,10 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             mPhoneNumber = itemView.findViewById(R.id.txtPhone);
         }
 
+        /**
+         * Binds the data from the contact to the row.
+         * @param contact
+         */
         public void bind(ContactBE contact) {
             mContact = contact;
             mName.setText(mContact.getName());
@@ -74,14 +114,21 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             mPhoneNumber.setText(mContact.getPhoneNumber());
         }
 
+        /**
+         * Shows the PopUp when row is clicked.
+         * @param v
+         */
         @Override
         public void onClick(View v) {
             ShowPopUp(v, mContact);
         }
     }
 
-
-    // Calls the details popup menu.
+    /**
+     * Calls the details popup menu.
+     * @param view
+     * @param contact
+     */
     public void ShowPopUp(View view, ContactBE contact) {
 
         myDialog.setContentView(R.layout.details_pop_up);
@@ -146,13 +193,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             }
         });
 
-
-
-
-
-
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
-
     }
 }
