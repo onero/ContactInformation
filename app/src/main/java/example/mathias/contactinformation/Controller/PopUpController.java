@@ -19,9 +19,10 @@ import example.mathias.contactinformation.R;
 
 public class PopUpController {
 
-    private TextView txtClose, txtName;
+    private TextView txtClose, txtName, txtInfo;
     private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
     private Dialog myDialog;
+    private InformationController info;
 
     public PopUpController(Context context) {
         myDialog = new Dialog(context);
@@ -39,6 +40,7 @@ public class PopUpController {
         txtWeb = myDialog.findViewById(R.id.txtWeb);
         txtDirection = myDialog.findViewById(R.id.txtDirection);
         txtName = myDialog.findViewById(R.id.txtName);
+        txtInfo = myDialog.findViewById(R.id.txtInfo);
     }
 
     /**
@@ -46,10 +48,20 @@ public class PopUpController {
      */
     private void setOnClickListeners() {
 
+        // Close
         txtClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 myDialog.dismiss();
+            }
+        });
+
+        // INFORMATION
+        txtInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                info = new InformationController(view.getContext());
+                info.showInfo();
             }
         });
 
