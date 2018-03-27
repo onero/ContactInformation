@@ -99,7 +99,7 @@ public class ContactListActivity extends AppCompatActivity {
 
         adapter.notifyDataSetChanged();
 
-        recyclerView.scrollToPosition(ContactModel.get(mContext).getContacts().size() - 1);
+        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
     }
 
     /**
