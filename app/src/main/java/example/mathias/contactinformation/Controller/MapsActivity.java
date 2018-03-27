@@ -50,8 +50,7 @@ public class MapsActivity extends FragmentActivity
     private final String PERMISSION_DENIED = "Permission denied..!";
     // The radius of the map shown for the user.
     private final int ZOOM_AREA = 11;
-
-    public static final int REQUEST_LOCATION_CODE = 50;
+    public static final int REQUEST_LOCATION_CODE = 99;
 
     private GoogleMap mMap;
     private GoogleApiClient mClient;
@@ -59,7 +58,6 @@ public class MapsActivity extends FragmentActivity
     private Location mLastLocation;
     private Button mBtnSearch;
     private EditText mTxtAddress, mTxtFriend;
-
     private Marker mCurrentLocationMarker;
 
     @Override
@@ -78,7 +76,10 @@ public class MapsActivity extends FragmentActivity
         mapFragment.getMapAsync(this);
     }
 
-    // Search for an address and adds a title to the marker.
+    /**
+     * Search for an address and adds a title to the marker.
+     * @param view
+     */
     public void onClick(View view) {
         if (view.getId() == R.id.btnSearch) {
 
@@ -124,7 +125,12 @@ public class MapsActivity extends FragmentActivity
         }
     }
 
-    // To handle request permissions. (If granted or not).
+    /**
+     * To handle request permissions. (If granted or not).
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -169,13 +175,15 @@ public class MapsActivity extends FragmentActivity
             mMap.setMyLocationEnabled(true);
         }
 
-        // Add a marker for Skovgaard's home and move the camera
+        // Add a marker for Skovgaard's home.
         LatLng skovgaard = new LatLng(55.479509, 8.4635673);
         mMap.addMarker(new MarkerOptions().position(skovgaard).title("Skovgaard's crib"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(skovgaard));
 
     }
-    // Creates a user.
+
+    /**
+     * Creates a user in the map.
+     */
     protected synchronized void buildGoogleApiClient() {
         mClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -186,7 +194,10 @@ public class MapsActivity extends FragmentActivity
         mClient.connect();
     }
 
-    // Checks if the user have changed location.
+    /**
+     * Checks if the user have changed location.
+     * @param location
+     */
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
@@ -219,7 +230,10 @@ public class MapsActivity extends FragmentActivity
         }
     }
 
-    // When to update and accuracy + permission check.
+    /**
+     * When to update and accuracy + permission check.
+     * @param bundle
+     */
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         mLocationRequest = new LocationRequest();
@@ -237,7 +251,10 @@ public class MapsActivity extends FragmentActivity
         }
     }
 
-    // Permission check.
+    /**
+     * Permission check.
+     * @return
+     */
     public boolean checkLocationPermission() {
         // Checks the permission is granted.
         // If the app is NOT granted permission ask the user to grant permission.
