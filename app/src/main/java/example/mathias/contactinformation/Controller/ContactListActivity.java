@@ -13,8 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import java.util.UUID;
-
 import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.Database.ContactBaseHelper;
 import example.mathias.contactinformation.Model.ContactModel;

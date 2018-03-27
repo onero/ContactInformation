@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import example.mathias.contactinformation.BE.ContactBE;
+import example.mathias.contactinformation.Database.ContactDBSchema.ContactTable;
 
 /**
  * Created by Mathias on 26/03/2018.
@@ -21,14 +22,14 @@ public class ContactCurserWrapper extends CursorWrapper {
     }
 
     public ContactBE getContact() {
-        String uuidString = getString(getColumnIndex(ContactDBSchema.ContactTable.Cols.UUID));
-        String name = getString(getColumnIndex(ContactDBSchema.ContactTable.Cols.NAME));
-        String address = getString(getColumnIndex(ContactDBSchema.ContactTable.Cols.ADDRESS));
-        String birthday = getString(getColumnIndex(ContactDBSchema.ContactTable.Cols.BIRTHDAY));
-        String location = getString(getColumnIndex(ContactDBSchema.ContactTable.Cols.LOCATION));
-        String mail = getString(getColumnIndex(ContactDBSchema.ContactTable.Cols.MAIL));
-        String phone = getString(getColumnIndex(ContactDBSchema.ContactTable.Cols.PHONE));
-        String website = getString(getColumnIndex(ContactDBSchema.ContactTable.Cols.WEBSITE));
+        String uuidString = getString(getColumnIndex(ContactTable.Cols.UUID));
+        String name = getString(getColumnIndex(ContactTable.Cols.NAME));
+        String address = getString(getColumnIndex(ContactTable.Cols.ADDRESS));
+        String birthday = getString(getColumnIndex(ContactTable.Cols.BIRTHDAY));
+        String location = getString(getColumnIndex(ContactTable.Cols.LOCATION));
+        String mail = getString(getColumnIndex(ContactTable.Cols.MAIL));
+        String phone = getString(getColumnIndex(ContactTable.Cols.PHONE));
+        String website = getString(getColumnIndex(ContactTable.Cols.WEBSITE));
 
         ContactBE contact = new ContactBE(UUID.fromString(uuidString));
         contact.setName(name);
