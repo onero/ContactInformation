@@ -22,12 +22,11 @@ import example.mathias.contactinformation.Database.ContactDBSchema.ContactTable;
 
 public class ContactModel {
 
+
     private static ContactModel sContactModel;
 
     private Context mContext;
     private SQLiteDatabase mDatabase;
-
-    private List<ContactBE> mContacts;
 
     public static ContactModel get(Context context) {
         if (sContactModel == null) {
@@ -36,17 +35,20 @@ public class ContactModel {
         return sContactModel;
     }
 
+    /**
+     *
+     * @param context
+     */
     private ContactModel(Context context) {
         mContext = context.getApplicationContext();
         mDatabase = new ContactBaseHelper(mContext)
                 .getWritableDatabase();
-        mContacts = new ArrayList<>();
     }
 
     public List<ContactBE> getContacts() {
         List<ContactBE> contacts = new ArrayList<>();
 
-        try (ContactCurserWrapper cursor = queryCrimes(null, null)) {
+        try (ContactCurserWrapper cursor = queryContacts(null, null)) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 contacts.add(cursor.getContact());
@@ -56,9 +58,9 @@ public class ContactModel {
         return contacts;
     }
 
-    public ContactBE getCrime(UUID id) {
+    public ContactBE getContact(UUID id) {
 
-        try (ContactCurserWrapper cursor = queryCrimes(
+        try (ContactCurserWrapper cursor = queryContacts(
                 ContactTable.Cols.UUID + " = ?",
                 new String[]{id.toString()}
         )) {
@@ -102,7 +104,7 @@ public class ContactModel {
         return new File(fileDir, contact.getPicture());
     }
 
-    private ContactCurserWrapper queryCrimes(String whereClause, String[] whereArgs) {
+    private ContactCurserWrapper queryContacts(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 ContactTable.NAME,
                 null, // columns - null selects all columns

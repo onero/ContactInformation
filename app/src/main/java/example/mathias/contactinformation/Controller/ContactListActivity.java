@@ -22,15 +22,13 @@ public class ContactListActivity extends AppCompatActivity {
 
     public static Dialog myDialog;
     private Context mContext;
-    private SQLiteDatabase mDatabase;
+
     private ContactRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mContext = this;
-        mDatabase = new ContactBaseHelper(mContext)
-                .getWritableDatabase();
 
         super.onCreate(savedInstanceState);
         myDialog = new Dialog(mContext);
@@ -77,9 +75,13 @@ public class ContactListActivity extends AppCompatActivity {
     private void addContact() {
 
         ContactBE contactToAdd = new ContactBE();
+
         contactToAdd.setName("Mathias");
+
         ContactModel.get(mContext).addContact(contactToAdd);
+
         adapter.notifyDataSetChanged();
+
         recyclerView.scrollToPosition(ContactModel.get(mContext).getContacts().size() - 1);
     }
 

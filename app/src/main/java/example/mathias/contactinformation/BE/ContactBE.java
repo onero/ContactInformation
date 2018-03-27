@@ -32,6 +32,16 @@ public class ContactBE {
 
     public ContactBE() {
         this(UUID.randomUUID());
+        mName = "";
+        mAddress = "";
+        mLocation = new Location("");
+        mPhoneNumber = "";
+        mMailAddress = "";
+        mWebsite = "";
+        mBirthDay = new Date();
+        mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        mTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        mPicture = "";
     }
 
     public ContactBE(UUID id) {
