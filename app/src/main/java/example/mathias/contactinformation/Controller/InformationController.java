@@ -1,9 +1,12 @@
 package example.mathias.contactinformation.Controller;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +22,7 @@ import example.mathias.contactinformation.R;
  * Created by Skovgaard on 27-03-2018.
  */
 
-public class InformationController {
+public class InformationController{
 
     private TextView txtClose, txtName;
     private Button btnSave, btnDelete;
@@ -83,6 +86,7 @@ public class InformationController {
                 Toast.makeText(view.getContext(), "Deleting...", Toast.LENGTH_LONG).show();
                 Log.d("DELETE", "det virker!");
 
+                alert(view.getContext());
             }
         });
 
@@ -96,6 +100,34 @@ public class InformationController {
         });
 
 
+    }
+
+    private void alert(Context context) {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_DARK);
+        mBuilder.setIcon(android.R.drawable.ic_menu_delete);
+        mBuilder.setTitle(R.string.title_delete);
+        mBuilder.setMessage(R.string.message_delete);
+        mBuilder.setCancelable(false);
+
+        // Cancel
+        mBuilder.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        // Yes
+        mBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+
+        AlertDialog alertDialog = mBuilder.create();
+        alertDialog.show();
     }
 
     public void showInfo() {
