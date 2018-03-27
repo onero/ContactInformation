@@ -1,11 +1,5 @@
 package example.mathias.contactinformation.Database;
 
-import android.location.Location;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
-
 /**
  * Created by Mathias on 26/03/2018.
  */
@@ -14,8 +8,10 @@ public class ContactDBSchema {
 
     public static final class ContactTable {
 
+        // Name of the table.
         public static final String NAME = "contacts";
 
+        // Names of all the cols.
         public static final class Cols {
             public static final String UUID = "uuid";
             public static final String NAME = "name";

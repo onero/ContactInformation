@@ -44,10 +44,14 @@ public class MapsActivity extends FragmentActivity
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    // Gets the currenct location of the user.
     private final String CURRENT_LOCATION = "Current location";
+    // If user don't agree to permission is denied text will appear.
     private final String PERMISSION_DENIED = "Permission denied..!";
+    // The radius of the map shown for the user.
     private final int ZOOM_AREA = 11;
-    public static final int REQUEST_LOCATION_CODE = 99;
+
+    public static final int REQUEST_LOCATION_CODE = 50;
 
     private GoogleMap mMap;
     private GoogleApiClient mClient;
@@ -182,6 +186,7 @@ public class MapsActivity extends FragmentActivity
         mClient.connect();
     }
 
+    // Checks if the user have changed location.
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
@@ -214,6 +219,7 @@ public class MapsActivity extends FragmentActivity
         }
     }
 
+    // When to update and accuracy + permission check.
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         mLocationRequest = new LocationRequest();
@@ -231,6 +237,7 @@ public class MapsActivity extends FragmentActivity
         }
     }
 
+    // Permission check.
     public boolean checkLocationPermission() {
         // Checks the permission is granted.
         // If the app is NOT granted permission ask the user to grant permission.

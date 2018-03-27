@@ -47,6 +47,7 @@ public class ContactListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    // When starting up the application create the menu.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -54,6 +55,7 @@ public class ContactListActivity extends AppCompatActivity {
         return true;
     }
 
+    // Switch for our menu so it is easy to add more later on.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -72,6 +74,7 @@ public class ContactListActivity extends AppCompatActivity {
         }
     }
 
+    // Adding mock contact.
     private void addContact() {
 
         ContactBE contactToAdd = new ContactBE();
@@ -85,6 +88,7 @@ public class ContactListActivity extends AppCompatActivity {
         recyclerView.scrollToPosition(ContactModel.get(mContext).getContacts().size() - 1);
     }
 
+    // Starts up a new Activity for maps.
     private void map() {
         Intent intent = new Intent(ContactListActivity.this, MapsActivity.class);
         startActivity(intent);

@@ -2,10 +2,6 @@ package example.mathias.contactinformation.Database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
-import android.icu.text.SimpleDateFormat;
-
-import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
 import example.mathias.contactinformation.BE.ContactBE;
@@ -21,6 +17,7 @@ public class ContactCurserWrapper extends CursorWrapper {
         super(cursor);
     }
 
+    // Getting the contact from the DB and return it.
     public ContactBE getContact() {
         String uuidString = getString(getColumnIndex(ContactTable.Cols.UUID));
         String name = getString(getColumnIndex(ContactTable.Cols.NAME));
