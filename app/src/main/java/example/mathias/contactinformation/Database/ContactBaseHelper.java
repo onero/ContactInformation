@@ -14,7 +14,7 @@ import example.mathias.contactinformation.Database.ContactDBSchema.ContactTable;
 public class ContactBaseHelper extends SQLiteOpenHelper {
 
     // Sets the current version.
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     // The name on the DB file.
     private static final String DATABASE_NAME = "contactBase.db";
 

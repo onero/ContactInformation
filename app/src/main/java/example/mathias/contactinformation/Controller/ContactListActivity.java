@@ -18,9 +18,6 @@ import example.mathias.contactinformation.R;
 
 public class ContactListActivity extends AppCompatActivity {
 
-    // 
-    public static Dialog myDialog;
-
     // Stored Context.
     private Context mContext;
 
@@ -39,7 +36,6 @@ public class ContactListActivity extends AppCompatActivity {
         mContext = this;
 
         super.onCreate(savedInstanceState);
-        myDialog = new Dialog(mContext);
 
         // Recyclerview
         setContentView(R.layout.activity_main_recycler);
