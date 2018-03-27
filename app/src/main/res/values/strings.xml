@@ -3,4 +3,14 @@
     <string name="app_name">Contacts</string>
     <string name="new_contact">New Contact</string>
     <string name="sort_list">Sort List</string>
+    <string name="x">X</string>
+    <string name="contact_name">Ugly monkey</string>
+    <string name="call">CALL</string>
+    <string name="sms">SMS</string>
+    <string name="mail">Mail</string>
+    <string name="contact_mail">example@something.com</string>
+    <string name="web">Web</string>
+    <string name="contact_web">www.EtEllerAndet.dk</string>
+    <string name="get_direction">Get direction</string>
+    <string name="information">i</string>
 </resources>
