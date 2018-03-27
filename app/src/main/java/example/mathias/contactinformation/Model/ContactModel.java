@@ -22,12 +22,21 @@ import example.mathias.contactinformation.Database.ContactDBSchema.ContactTable;
 
 public class ContactModel {
 
-
+    // Singleton Model variable
     private static ContactModel sContactModel;
 
+    // Context from outside the class
     private Context mContext;
+
+    // Database from the baseHelper
     private SQLiteDatabase mDatabase;
 
+    /**
+     * Singleton Get method for getting the same instance every time,
+     * while also providing the context.
+     * @param context
+     * @return
+     */
     public static ContactModel get(Context context) {
         if (sContactModel == null) {
             sContactModel = new ContactModel(context);
@@ -36,7 +45,7 @@ public class ContactModel {
     }
 
     /**
-     *
+     * Constructor with Context from the outside, and instantiation of Database.
      * @param context
      */
     private ContactModel(Context context) {
@@ -45,6 +54,10 @@ public class ContactModel {
                 .getWritableDatabase();
     }
 
+    /**
+     * The public GetAll method that handles db contact.
+     * @return all ContactBEs from db.
+     */
     public List<ContactBE> getContacts() {
         List<ContactBE> contacts = new ArrayList<>();
 
@@ -58,6 +71,11 @@ public class ContactModel {
         return contacts;
     }
 
+    /**
+     * the public GetOne by Id that handles db contact.
+     * @param id
+     * @return one specific ContactBE
+     */
     public ContactBE getContact(UUID id) {
 
         try (ContactCurserWrapper cursor = queryContacts(
@@ -71,6 +89,11 @@ public class ContactModel {
         }
     }
 
+    /**
+     * Helper method for putting Content Values, for better cohesion.
+     * @param contact
+     * @return the ContentValues matching the db.
+     */
     private static ContentValues getContentValues(ContactBE contact) {
         ContentValues values = new ContentValues();
         values.put(ContactTable.Cols.UUID, contact.getId().toString());
@@ -85,11 +108,19 @@ public class ContactModel {
         return values;
     }
 
+    /**
+     * Method for Creation of a contact in the db.
+     * @param contact
+     */
     public void addContact(ContactBE contact) {
         ContentValues values = getContentValues(contact);
         mDatabase.insert(ContactTable.NAME, null, values);
     }
 
+    /**
+     * Method for Updating a contact matching the UUID
+     * @param contact
+     */
     public void updateContact(ContactBE contact) {
         String uuidString = contact.getId().toString();
         ContentValues values = getContentValues(contact);
@@ -99,11 +130,20 @@ public class ContactModel {
                 new String [] {uuidString});
     }
 
-    public File getPhotoFile(ContactBE contact) {
-        File fileDir = mContext.getFilesDir();
-        return new File(fileDir, contact.getPicture());
-    }
+    /**
+     * To be Implemented
+     */
+//    public File getPhotoFile(ContactBE contact) {
+//        File fileDir = mContext.getFilesDir();
+//        return new File(fileDir, contact.getPicture());
+//    }
 
+    /**
+     * Helper method for getting a CursorWrapper.
+     * @param whereClause
+     * @param whereArgs
+     * @return
+     */
     private ContactCurserWrapper queryContacts(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 ContactTable.NAME,
@@ -117,6 +157,10 @@ public class ContactModel {
         return new ContactCurserWrapper(cursor);
     }
 
+    /**
+     * Method for Deletion of a specific ContactBE
+     * @param id
+     */
     public void deleteContact(UUID id) {
         mDatabase.delete(ContactTable.NAME,
                 ContactTable.Cols.UUID + " = ?",
