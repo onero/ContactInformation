@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:background="@drawable/button_save"
-            android:text="Save"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="12sp" />
 
@@ -65,7 +65,7 @@
                 android:paddingLeft="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:text="Contact name:"/>
+                android:text="@string/contactName"/>
 
             <EditText
                 android:id="@+id/editContactName"
@@ -87,7 +87,7 @@
                 android:paddingLeft="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:text="Phone Number:"/>
+                android:text="@string/phone_number"/>
 
             <EditText
                 android:id="@+id/editPhoneNumber"
@@ -109,7 +109,7 @@
                 android:paddingLeft="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:text="E-mail:"/>
+                android:text="@string/email"/>
 
             <EditText
                 android:id="@+id/editEmail"
@@ -131,7 +131,7 @@
                 android:paddingLeft="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:text="Website:"/>
+                android:text="@string/website"/>
 
             <EditText
                 android:id="@+id/editWebsite"
@@ -153,7 +153,7 @@
                 android:paddingLeft="10dp"
                 android:textSize="16sp"
                 android:textColor="@color/white"
-                android:text="Address:"/>
+                android:text="@string/address"/>
 
             <EditText
                 android:id="@+id/editAddress"
@@ -167,7 +167,7 @@
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete contact"
+            android:text="@string/delete_contact"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textColor="@color/red"

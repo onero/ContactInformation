@@ -13,4 +13,11 @@
     <string name="contact_web">www.EtEllerAndet.dk</string>
     <string name="get_direction">Get direction</string>
     <string name="information">i</string>
+    <string name="website">Website:</string>
+    <string name="email">E-mail:</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="contactName">Contact name:</string>
+    <string name="save">Save</string>
+    <string name="address">Address:</string>
+    <string name="delete_contact">Delete contact</string>
 </resources>
