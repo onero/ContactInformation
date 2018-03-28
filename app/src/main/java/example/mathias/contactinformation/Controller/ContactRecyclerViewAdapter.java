@@ -3,6 +3,7 @@ package example.mathias.contactinformation.Controller;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
     // Stored Model from the outside.
     private ContactModel mContactModel;
+    private ContactRecyclerViewAdapter mAdapter;
 
     /**
      * Constructor for getting the model from the outside.
@@ -36,6 +38,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
      */
     public ContactRecyclerViewAdapter(ContactModel contactModel) {
         mContactModel = contactModel;
+        mAdapter = this;
     }
 
     /**
@@ -116,7 +119,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
         @Override
         public void onClick(View view) {
             popUp = new ContactActionController(view.getContext());
-            popUp.showPopUp(mContact);
+            popUp.showPopUp(mContact, mAdapter);
         }
     }
 }

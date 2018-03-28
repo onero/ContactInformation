@@ -89,7 +89,11 @@ public class ContactListActivity extends AppCompatActivity {
 
         ContactBE contactToAdd = new ContactBE();
 
-        contactToAdd.setName("Mathias");
+        contactToAdd.setName("Skovgaard");
+        contactToAdd.setAddress("Amagervej 14, 6705 Esbjerg");
+        contactToAdd.setPhoneNumber("08070605");
+        contactToAdd.setMailAddress("skovgaard@test.dk");
+        contactToAdd.setWebsite("skovgaard.dk");
 
         ContactModel.get(mContext).addContact(contactToAdd);
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import example.mathias.contactinformation.BE.ContactBE;
+import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
 /**
@@ -24,11 +25,17 @@ import example.mathias.contactinformation.R;
 
 public class ContactInformationController {
 
-    private TextView txtClose, txtName;
+    private TextView txtClose;
     private Button btnSave, btnDelete;
     private ImageView changePicture;
     private EditText editContactName, editPhoneNumber, editEmail, editWebsite, editAddress;
     private Dialog mDialog;
+
+    private ContactBE mContact;
+    private Context mContext;
+    private Dialog mOuterDialog;
+    private ContactRecyclerViewAdapter mAdapter;
+    private ContactActionController mContactActionController;
 
     public ContactInformationController(Context context) {
         mDialog = new Dialog(context);
@@ -44,7 +51,6 @@ public class ContactInformationController {
         btnDelete = mDialog.findViewById(R.id.btnDelete);
         // TextView
         txtClose = mDialog.findViewById(R.id.txtClose);
-        txtName = mDialog.findViewById(R.id.txtName);
         // ImageView
         changePicture = mDialog.findViewById(R.id.changePicture);
         // EditText
@@ -64,8 +70,7 @@ public class ContactInformationController {
         txtClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDialog.dismiss();
-                Log.d("CLOSE", "det virker!");
+                closeInformationController();
             }
         });
 
@@ -73,9 +78,20 @@ public class ContactInformationController {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Saving...", Toast.LENGTH_LONG).show();
-                Log.d("SAVE", "det virker!");
 
+                ContactBE contact = new ContactBE(mContact.getId());
+
+                contact.setName(editContactName.getText().toString());
+                contact.setPhoneNumber(editPhoneNumber.getText().toString());
+                contact.setMailAddress(editEmail.getText().toString());
+                contact.setWebsite(editWebsite.getText().toString());
+                contact.setAddress(editAddress.getText().toString());
+
+                ContactModel.get(view.getContext()).updateContact(contact);
+                mContactActionController.updateContactInformation(contact);
+                mAdapter.notifyDataSetChanged();
+
+                Toast.makeText(view.getContext(), "Saved!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -83,9 +99,6 @@ public class ContactInformationController {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Deleting...", Toast.LENGTH_LONG).show();
-                Log.d("DELETE", "det virker!");
-
                 alert(view.getContext());
             }
         });
@@ -103,6 +116,7 @@ public class ContactInformationController {
     }
 
     private void alert(Context context) {
+        mContext = context;
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_DARK);
         mBuilder.setIcon(android.R.drawable.ic_menu_delete);
         mBuilder.setTitle(R.string.title_delete);
@@ -121,7 +135,11 @@ public class ContactInformationController {
         mBuilder.setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                deleteContact(mContext);
+                mAdapter.notifyDataSetChanged();
                 dialogInterface.dismiss();
+                closeInformationController();
+                mOuterDialog.dismiss();
             }
         });
 
@@ -130,9 +148,33 @@ public class ContactInformationController {
         alertDialog.show();
     }
 
-    public void showInfo() {
+    public void showInfo(ContactBE contact, Dialog outerDialog, ContactRecyclerViewAdapter adapter, ContactActionController contactActionController) {
+        mContactActionController = contactActionController;
+        mAdapter = adapter;
+        if (contact != null) {
+            mContact = contact;
+            setContactInformation();
+
+        }
+        mOuterDialog = outerDialog;
         mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mDialog.show();
     }
 
+    private void setContactInformation( ) {
+        editContactName.setText(mContact.getName());
+        editAddress.setText(mContact.getAddress());
+        editEmail.setText(mContact.getMailAddress());
+        editPhoneNumber.setText(mContact.getPhoneNumber());
+        editWebsite.setText(mContact.getWebsite());
+    }
+
+    private void deleteContact(Context context) {
+        ContactModel.get(context).deleteContact(mContact.getId());
+    }
+
+    private void closeInformationController() {
+        mDialog.dismiss();
+        Log.d("CLOSE", "det virker!");
+    }
 }
