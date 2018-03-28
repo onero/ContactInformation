@@ -6,9 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,6 +44,42 @@ public class ContactInformationController {
 
         findViewsByIds();
         setOnClickListeners();
+        setInputTypes();
+    }
+
+    private void setSelections() {
+        editContactName.setSelection(editContactName.getText().length());
+        editPhoneNumber.setSelection(editPhoneNumber.getText().length());
+        editEmail.setSelection(editEmail.getText().length());
+        editWebsite.setSelection(editWebsite.getText().length());
+        editAddress.setSelection(editAddress.getText().length());
+    }
+
+    private void setInputTypes() {
+        //Name
+        editContactName.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+        editContactName.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        //Phone
+        editPhoneNumber.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_CLASS_PHONE);
+        editPhoneNumber.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        //Email
+        editEmail.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        editEmail.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        //Website
+        editWebsite.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_URI);
+        editWebsite.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        //Address
+        editAddress.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
+        editAddress.setImeOptions(EditorInfo.IME_ACTION_DONE);
     }
 
     private void findViewsByIds() {
@@ -167,6 +204,7 @@ public class ContactInformationController {
         editEmail.setText(mContact.getMailAddress());
         editPhoneNumber.setText(mContact.getPhoneNumber());
         editWebsite.setText(mContact.getWebsite());
+        setSelections();
     }
 
     private void deleteContact(Context context) {
