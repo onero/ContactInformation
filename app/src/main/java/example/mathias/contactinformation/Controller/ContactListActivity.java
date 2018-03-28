@@ -27,6 +27,8 @@ public class ContactListActivity extends AppCompatActivity {
     // Stored RecyclerView.
     private RecyclerView recyclerView;
 
+    private AddContactController mAddContactController;
+
     /**
      * Instanciation of Context, Dialog, RecyclerView and RecyclerViewAdapter.
      * @param savedInstanceState
@@ -87,19 +89,23 @@ public class ContactListActivity extends AppCompatActivity {
      */
     private void addContact() {
 
-        ContactBE contactToAdd = new ContactBE();
+        mAddContactController = new AddContactController(this);
+        mAddContactController.showAddContactPopUp();
 
-        contactToAdd.setName("Skovgaard");
-        contactToAdd.setAddress("Amagervej 14, 6705 Esbjerg");
-        contactToAdd.setPhoneNumber("08070605");
-        contactToAdd.setMailAddress("skovgaard@test.dk");
-        contactToAdd.setWebsite("skovgaard.dk");
 
-        ContactModel.get(mContext).addContact(contactToAdd);
+//        ContactBE contactToAdd = new ContactBE();
 
-        adapter.notifyDataSetChanged();
+//        contactToAdd.setName("Skovgaard");
+//        contactToAdd.setAddress("Amagervej 14, 6705 Esbjerg");
+//        contactToAdd.setPhoneNumber("08070605");
+//        contactToAdd.setMailAddress("skovgaard@test.dk");
+//        contactToAdd.setWebsite("skovgaard.dk");
 
-        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+//        ContactModel.get(mContext).addContact(contactToAdd);
+
+//        adapter.notifyDataSetChanged();
+
+//        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
     }
 
     /**

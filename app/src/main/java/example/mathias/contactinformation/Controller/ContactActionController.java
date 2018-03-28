@@ -116,7 +116,8 @@ public class ContactActionController {
         });
     }
 
-    public void showPopUp(ContactBE contact, ContactRecyclerViewAdapter adapter) {
+
+    public void showContactActionPopUp(ContactBE contact, ContactRecyclerViewAdapter adapter) {
         mAdapter = adapter;
         mContact = contact;
         txtName.setText(contact.getName());

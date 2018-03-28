@@ -16,7 +16,7 @@
 
 
         <TextView
-            android:id="@+id/txtClose"
+            android:id="@+id/txtCloseAddContact"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/circle_background"
@@ -38,7 +38,7 @@
 
         <!--Profile picture-->
         <ImageView
-            android:id="@+id/changePicture"
+            android:id="@+id/addPicture"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_gravity="center"
@@ -61,7 +61,7 @@
                 android:text="@string/contactName"/>
 
             <EditText
-                android:id="@+id/editContactName"
+                android:id="@+id/addContactName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -85,7 +85,7 @@
                 android:text="@string/phone_number"/>
 
             <EditText
-                android:id="@+id/editPhoneNumber"
+                android:id="@+id/addPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"/>
@@ -107,7 +107,7 @@
                 android:text="@string/email"/>
 
             <EditText
-                android:id="@+id/editEmail"
+                android:id="@+id/addEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"/>
@@ -129,7 +129,7 @@
                 android:text="@string/website"/>
 
             <EditText
-                android:id="@+id/editWebsite"
+                android:id="@+id/addWebsite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"/>
@@ -151,7 +151,7 @@
                 android:text="@string/address"/>
 
             <EditText
-                android:id="@+id/editAddress"
+                android:id="@+id/addAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"/>
@@ -159,7 +159,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnDelete"
+            android:id="@+id/btnSaveNewContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save"
