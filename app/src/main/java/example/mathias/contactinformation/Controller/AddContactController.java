@@ -4,8 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,7 +30,7 @@ public class AddContactController {
     private EditText addContactName, addPhoneNumber, addEmail, addWebsite, addAddress;
 
     private Dialog mDialog;
-
+    private ContactRecyclerViewAdapter mAdapter;
 
     public AddContactController(Context context) {
 
@@ -37,6 +39,34 @@ public class AddContactController {
 
         findViewsByIds();
         setOnClickListeners();
+        setInputTypes();
+    }
+
+    private void setInputTypes() {
+        //Name
+        addContactName.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+        addContactName.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        //Phone
+        addPhoneNumber.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_CLASS_PHONE);
+        addPhoneNumber.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        //Email
+        addEmail.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        addEmail.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        //Website
+        addWebsite.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_URI);
+        addWebsite.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        //Address
+        addAddress.setInputType(InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
+        addAddress.setImeOptions(EditorInfo.IME_ACTION_DONE);
     }
 
     private void setOnClickListeners() {
@@ -63,6 +93,8 @@ public class AddContactController {
                 contact.setAddress(addAddress.getText().toString());
 
                 ContactModel.get(view.getContext()).addContact(contact);
+                mAdapter.notifyDataSetChanged();
+                mDialog.dismiss();
 
                 Toast.makeText(view.getContext(), "Saved...", Toast.LENGTH_LONG).show();
 
@@ -95,7 +127,8 @@ public class AddContactController {
         addAddress = mDialog.findViewById(R.id.addAddress);
 
     }
-    public void showAddContactPopUp() {
+    public void showAddContactPopUp(ContactRecyclerViewAdapter adapter) {
+        mAdapter = adapter;
         mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mDialog.show();
     }
