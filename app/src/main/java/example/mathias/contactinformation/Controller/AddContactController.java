@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import example.mathias.contactinformation.BE.ContactBE;
+import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
 /**
@@ -26,6 +28,7 @@ public class AddContactController {
     private EditText addContactName, addPhoneNumber, addEmail, addWebsite, addAddress;
 
     private Dialog mDialog;
+
 
     public AddContactController(Context context) {
 
@@ -50,8 +53,18 @@ public class AddContactController {
         btnSaveNewContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Saving...", Toast.LENGTH_LONG).show();
-                Log.d("SAVE", "det virker!");
+
+                ContactBE contact = new ContactBE();
+
+                contact.setName(addContactName.getText().toString());
+                contact.setPhoneNumber(addPhoneNumber.getText().toString());
+                contact.setMailAddress(addEmail.getText().toString());
+                contact.setWebsite(addWebsite.getText().toString());
+                contact.setAddress(addAddress.getText().toString());
+
+                ContactModel.get(view.getContext()).addContact(contact);
+
+                Toast.makeText(view.getContext(), "Saved...", Toast.LENGTH_LONG).show();
 
             }
         });
