@@ -24,8 +24,12 @@ public class ContactActionController {
     private Dialog myDialog;
     private ContactInformationController info;
     private ContactBE mContact;
+    private ContactRecyclerViewAdapter mAdapter;
+    private ContactActionController mContactActionController;
 
     public ContactActionController(Context context) {
+
+        mContactActionController = this;
         myDialog = new Dialog(context);
         myDialog.setContentView(R.layout.details_pop_up);
 
@@ -62,7 +66,7 @@ public class ContactActionController {
             @Override
             public void onClick(View view) {
                 info = new ContactInformationController(view.getContext());
-                info.showInfo(mContact);
+                info.showInfo(mContact, myDialog, mAdapter, mContactActionController);
             }
         });
 
@@ -112,10 +116,17 @@ public class ContactActionController {
         });
     }
 
-    public void showContactActionPopUp(ContactBE contact) {
+
+    public void showContactActionPopUp(ContactBE contact, ContactRecyclerViewAdapter adapter) {
+        mAdapter = adapter;
         mContact = contact;
         txtName.setText(contact.getName());
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
+    }
+
+    public void updateContactInformation(ContactBE contact) {
+        mContact = contact;
+        txtName.setText(mContact.getName());
     }
 }
