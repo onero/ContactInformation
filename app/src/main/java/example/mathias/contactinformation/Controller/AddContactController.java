@@ -20,10 +20,10 @@ import example.mathias.contactinformation.R;
 
 public class AddContactController {
 
-    private TextView txtClose, txtName;
-    private Button btnSave;
-    private ImageView changePicture;
-    private EditText editContactName, editPhoneNumber, editEmail, editWebsite, editAddress;
+    private TextView txtCloseAddContact;
+    private Button btnSaveNewContact;
+    private ImageView addPicture;
+    private EditText addContactName, addPhoneNumber, addEmail, addWebsite, addAddress;
 
     private Dialog mDialog;
 
@@ -33,22 +33,21 @@ public class AddContactController {
         mDialog.setContentView(R.layout.add_contact_pop_up);
 
         findViewsByIds();
-//        setOnClickListeners();
+        setOnClickListeners();
     }
 
     private void setOnClickListeners() {
 
         // Close
-        txtClose.setOnClickListener(new View.OnClickListener() {
+        txtCloseAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mDialog.dismiss();
-                Log.d("CLOSE", "det virker!");
             }
         });
 
         // Save
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        btnSaveNewContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Saving...", Toast.LENGTH_LONG).show();
@@ -58,7 +57,7 @@ public class AddContactController {
         });
 
         // Change picture
-        changePicture.setOnClickListener(new View.OnClickListener() {
+        addPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Changing picture...", Toast.LENGTH_LONG).show();
@@ -70,17 +69,17 @@ public class AddContactController {
     private void findViewsByIds() {
 
         // Button
-        btnSave = mDialog.findViewById(R.id.btnSave);
+        btnSaveNewContact = mDialog.findViewById(R.id.btnSaveNewContact);
         // TextView
-        txtName = mDialog.findViewById(R.id.txtName);
+        txtCloseAddContact = mDialog.findViewById(R.id.txtCloseAddContact);
         // ImageView
-        changePicture = mDialog.findViewById(R.id.changePicture);
+        addPicture = mDialog.findViewById(R.id.addPicture);
         // EditText
-        editContactName = mDialog.findViewById(R.id.editContactName);
-        editPhoneNumber = mDialog.findViewById(R.id.editPhoneNumber);
-        editEmail = mDialog.findViewById(R.id.editEmail);
-        editWebsite = mDialog.findViewById(R.id.editWebsite);
-        editAddress = mDialog.findViewById(R.id.editAddress);
+        addContactName = mDialog.findViewById(R.id.addContactName);
+        addPhoneNumber = mDialog.findViewById(R.id.addPhoneNumber);
+        addEmail = mDialog.findViewById(R.id.addEmail);
+        addWebsite = mDialog.findViewById(R.id.addWebsite);
+        addAddress = mDialog.findViewById(R.id.addAddress);
 
     }
     public void showAddContactPopUp() {
