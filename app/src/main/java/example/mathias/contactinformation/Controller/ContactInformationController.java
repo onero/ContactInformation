@@ -35,6 +35,7 @@ public class ContactInformationController {
     private Context mContext;
     private Dialog mOuterDialog;
     private ContactRecyclerViewAdapter mAdapter;
+    private ContactActionController mContactActionController;
 
     public ContactInformationController(Context context) {
         mDialog = new Dialog(context);
@@ -77,9 +78,20 @@ public class ContactInformationController {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Saving...", Toast.LENGTH_LONG).show();
-                Log.d("SAVE", "det virker!");
 
+                ContactBE contact = new ContactBE(mContact.getId());
+
+                contact.setName(editContactName.getText().toString());
+                contact.setPhoneNumber(editPhoneNumber.getText().toString());
+                contact.setMailAddress(editEmail.getText().toString());
+                contact.setWebsite(editWebsite.getText().toString());
+                contact.setAddress(editAddress.getText().toString());
+
+                ContactModel.get(view.getContext()).updateContact(contact);
+                mContactActionController.updateContactInformation(contact);
+                mAdapter.notifyDataSetChanged();
+
+                Toast.makeText(view.getContext(), "Saved!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -136,7 +148,8 @@ public class ContactInformationController {
         alertDialog.show();
     }
 
-    public void showInfo(ContactBE contact, Dialog outerDialog, ContactRecyclerViewAdapter adapter) {
+    public void showInfo(ContactBE contact, Dialog outerDialog, ContactRecyclerViewAdapter adapter, ContactActionController contactActionController) {
+        mContactActionController = contactActionController;
         mAdapter = adapter;
         if (contact != null) {
             mContact = contact;
