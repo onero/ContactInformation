@@ -17,14 +17,14 @@ import example.mathias.contactinformation.R;
  * Created by Mathias on 27/03/2018.
  */
 
-public class PopUpController {
+public class ContactActionController {
 
     private TextView txtClose, txtName, txtInfo;
     private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
     private Dialog myDialog;
-    private InformationController info;
+    private ContactInformationController info;
 
-    public PopUpController(Context context) {
+    public ContactActionController(Context context) {
         myDialog = new Dialog(context);
         myDialog.setContentView(R.layout.details_pop_up);
 
@@ -60,7 +60,7 @@ public class PopUpController {
         txtInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                info = new InformationController(view.getContext());
+                info = new ContactInformationController(view.getContext());
                 info.showInfo();
             }
         });

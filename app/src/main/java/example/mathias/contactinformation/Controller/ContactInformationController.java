@@ -22,7 +22,7 @@ import example.mathias.contactinformation.R;
  * Created by Skovgaard on 27-03-2018.
  */
 
-public class InformationController{
+public class ContactInformationController {
 
     private TextView txtClose, txtName;
     private Button btnSave, btnDelete;
@@ -30,7 +30,7 @@ public class InformationController{
     private EditText editContactName, editPhoneNumber, editEmail, editWebsite, editAddress;
     private Dialog mDialog;
 
-    public InformationController(Context context) {
+    public ContactInformationController(Context context) {
         mDialog = new Dialog(context);
         mDialog.setContentView(R.layout.information_pop_up);
 
