@@ -24,6 +24,7 @@ public class ContactActionController {
     private Dialog myDialog;
     private ContactInformationController info;
     private ContactBE mContact;
+    private ContactRecyclerViewAdapter mAdapter;
 
     public ContactActionController(Context context) {
         myDialog = new Dialog(context);
@@ -62,7 +63,7 @@ public class ContactActionController {
             @Override
             public void onClick(View view) {
                 info = new ContactInformationController(view.getContext());
-                info.showInfo(mContact);
+                info.showInfo(mContact, myDialog, mAdapter);
             }
         });
 
@@ -112,7 +113,8 @@ public class ContactActionController {
         });
     }
 
-    public void showPopUp(ContactBE contact) {
+    public void showPopUp(ContactBE contact, ContactRecyclerViewAdapter adapter) {
+        mAdapter = adapter;
         mContact = contact;
         txtName.setText(contact.getName());
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

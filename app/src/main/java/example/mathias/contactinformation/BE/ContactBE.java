@@ -56,7 +56,7 @@ public class ContactBE {
         mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         mTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         mPicture = "";
-    }
+}
 
     public String getName() {
         return mName;
