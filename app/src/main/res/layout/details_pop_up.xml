@@ -16,7 +16,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/txtEdit"
+            android:id="@+id/txtInfo"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/circle_background"
