@@ -25,7 +25,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     // Variables for assigning data.
     private TextView txtClose, txtName;
     private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
-    private ContactActionController popUp;
+    private ContactActionController mContactActionController;
 
     // Stored Model from the outside.
     private ContactModel mContactModel;
@@ -115,8 +115,8 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
          */
         @Override
         public void onClick(View view) {
-            popUp = new ContactActionController(view.getContext());
-            popUp.showPopUp(mContact);
+            mContactActionController = new ContactActionController(view.getContext());
+            mContactActionController.showContactActionPopUp(mContact);
         }
     }
 }

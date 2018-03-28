@@ -112,7 +112,7 @@ public class ContactActionController {
         });
     }
 
-    public void showPopUp(ContactBE contact) {
+    public void showContactActionPopUp(ContactBE contact) {
         mContact = contact;
         txtName.setText(contact.getName());
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
