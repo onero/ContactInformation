@@ -90,8 +90,7 @@ public class ContactListActivity extends AppCompatActivity {
     private void addContact() {
 
         mAddContactController = new AddContactController(this);
-        mAddContactController.showAddContactPopUp();
-
+        mAddContactController.showAddContactPopUp(adapter);
 
 //        ContactBE contactToAdd = new ContactBE();
 
