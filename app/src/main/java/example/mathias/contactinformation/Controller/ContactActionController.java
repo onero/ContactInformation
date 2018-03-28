@@ -23,6 +23,7 @@ public class ContactActionController {
     private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
     private Dialog myDialog;
     private ContactInformationController info;
+    private ContactBE mContact;
 
     public ContactActionController(Context context) {
         myDialog = new Dialog(context);
@@ -61,7 +62,7 @@ public class ContactActionController {
             @Override
             public void onClick(View view) {
                 info = new ContactInformationController(view.getContext());
-                info.showInfo();
+                info.showInfo(mContact);
             }
         });
 
@@ -112,6 +113,7 @@ public class ContactActionController {
     }
 
     public void showPopUp(ContactBE contact) {
+        mContact = contact;
         txtName.setText(contact.getName());
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();

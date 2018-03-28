@@ -130,9 +130,20 @@ public class ContactInformationController {
         alertDialog.show();
     }
 
-    public void showInfo() {
+    public void showInfo(ContactBE contact) {
+        if (contact != null) {
+            setContactInformation(contact);
+        }
         mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mDialog.show();
+    }
+
+    private void setContactInformation(ContactBE contact) {
+        editContactName.setText(contact.getName());
+        editAddress.setText(contact.getAddress());
+        editEmail.setText(contact.getMailAddress());
+        editPhoneNumber.setText(contact.getPhoneNumber());
+        editWebsite.setText(contact.getWebsite());
     }
 
 }
