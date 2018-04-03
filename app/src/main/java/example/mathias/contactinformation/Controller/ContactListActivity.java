@@ -1,9 +1,11 @@
 package example.mathias.contactinformation.Controller;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,11 +14,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
 public class ContactListActivity extends AppCompatActivity {
+
+    // Toolbar title
+    private static final String TOOLBAR_TITLE = "Contacts";
 
     // Stored Context.
     private Context mContext;
@@ -29,6 +33,8 @@ public class ContactListActivity extends AppCompatActivity {
 
     private AddContactController mAddContactController;
 
+    ActionBar mActionBar;
+
     /**
      * Instanciation of Context, Dialog, RecyclerView and RecyclerViewAdapter.
      * @param savedInstanceState
@@ -38,6 +44,12 @@ public class ContactListActivity extends AppCompatActivity {
         mContext = this;
 
         super.onCreate(savedInstanceState);
+
+        mActionBar = getSupportActionBar();
+
+        // Sets the toolbar.
+        mActionBar.setTitle(TOOLBAR_TITLE);
+        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1e2028")));
 
         // Recyclerview
         setContentView(R.layout.activity_main_recycler);
