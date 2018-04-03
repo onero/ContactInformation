@@ -29,7 +29,7 @@ public class ContactActionController {
     private ContactRecyclerViewAdapter mAdapter;
     private ContactActionController mContactActionController;
     private Context mContext;
-    private Intent callIntent;
+    private Intent mIntent;
 
     public ContactActionController(Context context) {
 
@@ -80,7 +80,7 @@ public class ContactActionController {
             @Override
             public void onClick(View view) {
 
-                callContactPhone();
+                callContact();
 
                 Toast.makeText(view.getContext(), "Calling: " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
@@ -90,7 +90,10 @@ public class ContactActionController {
         txtSms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "SMSing...", Toast.LENGTH_LONG).show();
+
+                smsContact();
+
+                Toast.makeText(view.getContext(), "SMSing to: " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
                 Log.d("CALL", "det virker!");
             }
         });
@@ -123,12 +126,24 @@ public class ContactActionController {
         });
     }
 
-    // Dialing up the contact.
-    private void callContactPhone() {
+    /**
+     *  SMS the contact
+     */
+    private void smsContact() {
 
-        callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mContact.getPhoneNumber()));
+        mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + mContact.getPhoneNumber()));
 
-        mContext.startActivity(callIntent);
+        mContext.startActivity(mIntent);
+    }
+
+    /**
+     *  Dialing up the contact.
+     */
+    private void callContact() {
+
+        mIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mContact.getPhoneNumber()));
+
+        mContext.startActivity(mIntent);
 
     }
 
