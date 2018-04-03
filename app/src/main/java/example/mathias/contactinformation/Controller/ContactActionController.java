@@ -81,7 +81,6 @@ public class ContactActionController {
             public void onClick(View view) {
 
                 callContact();
-
                 Toast.makeText(view.getContext(), "Calling " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
@@ -92,7 +91,6 @@ public class ContactActionController {
             public void onClick(View view) {
 
                 smsContact();
-
                 Toast.makeText(view.getContext(), "SMSing " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
@@ -103,7 +101,6 @@ public class ContactActionController {
             public void onClick(View view) {
 
                 mailingContact();
-
                 Toast.makeText(view.getContext(), "Mailing " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
@@ -112,8 +109,9 @@ public class ContactActionController {
         txtWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Visiting website...", Toast.LENGTH_LONG).show();
-                Log.d("CALL", "det virker!");
+
+                websiteOfContact();
+                Toast.makeText(view.getContext(), "Visiting website for " + mContact.getName(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -128,7 +126,17 @@ public class ContactActionController {
     }
 
     /**
-     *  Mailing the contact
+     * Visiting the website of the contact.
+     */
+    private void websiteOfContact() {
+        // Url addresses must be preceded by 'http://'...
+        Uri website = Uri.parse("http://" + mContact.getWebsite().toString());
+        mIntent = new Intent(Intent.ACTION_VIEW, website);
+        mContext.startActivity(mIntent);
+    }
+
+    /**
+     *  Mailing the contact.
      */
     private void mailingContact() {
         mIntent = new Intent(Intent.ACTION_SEND);
@@ -140,7 +148,7 @@ public class ContactActionController {
         // This sets the MIME type of your intent.
         // Since you aren't supposed to force any kind of behavior.
         mIntent.setType("message/rfc822");
-        
+
         mContext.startActivity(Intent.createChooser(mIntent, "Choose email client..."));
     }
 
