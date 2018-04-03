@@ -2,8 +2,10 @@ package example.mathias.contactinformation.Controller;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,9 +28,12 @@ public class ContactActionController {
     private ContactBE mContact;
     private ContactRecyclerViewAdapter mAdapter;
     private ContactActionController mContactActionController;
+    private Context mContext;
+    private Intent callIntent;
 
     public ContactActionController(Context context) {
 
+        this.mContext = context;
         mContactActionController = this;
         myDialog = new Dialog(context);
         myDialog.setContentView(R.layout.details_pop_up);
@@ -74,8 +79,10 @@ public class ContactActionController {
         txtCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Calling...", Toast.LENGTH_LONG).show();
-                Log.d("CALL", "det virker!");
+
+                callContactPhone();
+
+                Toast.makeText(view.getContext(), "Calling: " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -116,6 +123,14 @@ public class ContactActionController {
         });
     }
 
+    // Dialing up the contact.
+    private void callContactPhone() {
+
+        callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mContact.getPhoneNumber()));
+
+        mContext.startActivity(callIntent);
+
+    }
 
     public void showContactActionPopUp(ContactBE contact, ContactRecyclerViewAdapter adapter) {
         mAdapter = adapter;
