@@ -82,7 +82,7 @@ public class ContactActionController {
 
                 callContact();
 
-                Toast.makeText(view.getContext(), "Calling: " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(view.getContext(), "Calling " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -93,8 +93,7 @@ public class ContactActionController {
 
                 smsContact();
 
-                Toast.makeText(view.getContext(), "SMSing to: " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
-                Log.d("CALL", "det virker!");
+                Toast.makeText(view.getContext(), "SMSing " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -102,8 +101,10 @@ public class ContactActionController {
         txtMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Mailing...", Toast.LENGTH_LONG).show();
-                Log.d("CALL", "det virker!");
+
+                mailingContact();
+
+                Toast.makeText(view.getContext(), "Mailing " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -124,6 +125,23 @@ public class ContactActionController {
                 Log.d("CALL", "det virker!");
             }
         });
+    }
+
+    /**
+     *  Mailing the contact
+     */
+    private void mailingContact() {
+        mIntent = new Intent(Intent.ACTION_SEND);
+        mIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mContact.getMailAddress().toString()});
+//        mIntent.putExtra(Intent.EXTRA_CC, new String[]{"MathiasSkovgaardRasmussen@gmail.com"});
+//        mIntent.putExtra(Intent.EXTRA_SUBJECT, "Sending email from my awesome android phone!");
+//        mIntent.putExtra(Intent.EXTRA_TEXT, "We love android studio!");
+
+        // This sets the MIME type of your intent.
+        // Since you aren't supposed to force any kind of behavior.
+        mIntent.setType("message/rfc822");
+        
+        mContext.startActivity(Intent.createChooser(mIntent, "Choose email client..."));
     }
 
     /**
