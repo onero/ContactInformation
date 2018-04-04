@@ -2,8 +2,10 @@ package example.mathias.contactinformation.Controller;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,9 +28,12 @@ public class ContactActionController {
     private ContactBE mContact;
     private ContactRecyclerViewAdapter mAdapter;
     private ContactActionController mContactActionController;
+    private Context mContext;
+    private Intent mIntent;
 
     public ContactActionController(Context context) {
 
+        this.mContext = context;
         mContactActionController = this;
         myDialog = new Dialog(context);
         myDialog.setContentView(R.layout.details_pop_up);
@@ -74,8 +79,9 @@ public class ContactActionController {
         txtCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Calling...", Toast.LENGTH_LONG).show();
-                Log.d("CALL", "det virker!");
+
+                callContact();
+                Toast.makeText(view.getContext(), "Calling " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -83,8 +89,9 @@ public class ContactActionController {
         txtSms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "SMSing...", Toast.LENGTH_LONG).show();
-                Log.d("CALL", "det virker!");
+
+                smsContact();
+                Toast.makeText(view.getContext(), "SMSing " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -92,8 +99,9 @@ public class ContactActionController {
         txtMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Mailing...", Toast.LENGTH_LONG).show();
-                Log.d("CALL", "det virker!");
+
+                mailingContact();
+                Toast.makeText(view.getContext(), "Mailing " + mContact.getName().toString(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -101,8 +109,9 @@ public class ContactActionController {
         txtWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Visiting website...", Toast.LENGTH_LONG).show();
-                Log.d("CALL", "det virker!");
+
+                websiteOfContact();
+                Toast.makeText(view.getContext(), "Visiting website for " + mContact.getName(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -116,6 +125,53 @@ public class ContactActionController {
         });
     }
 
+    /**
+     * Visiting the website of the contact.
+     */
+    private void websiteOfContact() {
+        // Url addresses must be preceded by 'http://'...
+        Uri website = Uri.parse("http://" + mContact.getWebsite().toString());
+        mIntent = new Intent(Intent.ACTION_VIEW, website);
+        mContext.startActivity(mIntent);
+    }
+
+    /**
+     *  Mailing the contact.
+     */
+    private void mailingContact() {
+        mIntent = new Intent(Intent.ACTION_SEND);
+        mIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mContact.getMailAddress().toString()});
+//        mIntent.putExtra(Intent.EXTRA_CC, new String[]{"MathiasSkovgaardRasmussen@gmail.com"});
+//        mIntent.putExtra(Intent.EXTRA_SUBJECT, "Sending email from my awesome android phone!");
+//        mIntent.putExtra(Intent.EXTRA_TEXT, "We love android studio!");
+
+        // This sets the MIME type of your intent.
+        // Since you aren't supposed to force any kind of behavior.
+        mIntent.setType("message/rfc822");
+
+        mContext.startActivity(Intent.createChooser(mIntent, "Choose email client..."));
+    }
+
+    /**
+     *  SMS the contact
+     */
+    private void smsContact() {
+
+        mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + mContact.getPhoneNumber()));
+
+        mContext.startActivity(mIntent);
+    }
+
+    /**
+     *  Dialing up the contact.
+     */
+    private void callContact() {
+
+        mIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mContact.getPhoneNumber()));
+
+        mContext.startActivity(mIntent);
+
+    }
 
     public void showContactActionPopUp(ContactBE contact, ContactRecyclerViewAdapter adapter) {
         mAdapter = adapter;
