@@ -1,17 +1,8 @@
 package example.mathias.contactinformation.BE;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.media.Image;
 
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
-
-import example.mathias.contactinformation.R;
 
 /**
  * Created by Mathias on 19/03/2018.
@@ -26,8 +17,7 @@ public class ContactBE {
     private String mPhoneNumber;
     private String mMailAddress;
     private String mWebsite;
-    private Date mBirthDay;
-    private SimpleDateFormat mDateFormat, mTimeFormat;
+    private String mBirthDay;
     private String mPicture;
 
     public ContactBE() {
@@ -38,9 +28,7 @@ public class ContactBE {
         mPhoneNumber = "";
         mMailAddress = "";
         mWebsite = "";
-        mBirthDay = new Date();
-        mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        mTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        mBirthDay = "";
         mPicture = "";
     }
 
@@ -52,11 +40,9 @@ public class ContactBE {
         mPhoneNumber = "";
         mMailAddress = "";
         mWebsite = "";
-        mBirthDay = new Date();
-        mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        mTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        mBirthDay = "";
         mPicture = "";
-}
+    }
 
     public String getName() {
         return mName;
@@ -76,9 +62,6 @@ public class ContactBE {
 
     public String getLocation() {
         return mLocation.toString();
-    }
-
-    public void setLocation(String location) {
     }
 
     public String getPhoneNumber() {
@@ -106,26 +89,11 @@ public class ContactBE {
     }
 
     public String getBirthDay() {
-        return mBirthDay.toString();
+        return mBirthDay;
     }
 
-    public void setBirthDay(String birthDay) {
-    }
-
-    public SimpleDateFormat getDateFormat() {
-        return mDateFormat;
-    }
-
-    public void setDateFormat(SimpleDateFormat dateFormat) {
-        mDateFormat = dateFormat;
-    }
-
-    public SimpleDateFormat getTimeFormat() {
-        return mTimeFormat;
-    }
-
-    public void setTimeFormat(SimpleDateFormat timeFormat) {
-        mTimeFormat = timeFormat;
+    public void setBirthDay(String birthDayAsString) {
+        mBirthDay = birthDayAsString;
     }
 
     public String getPicture() {
