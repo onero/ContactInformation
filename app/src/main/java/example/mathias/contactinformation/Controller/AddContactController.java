@@ -2,6 +2,7 @@ package example.mathias.contactinformation.Controller;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.InputType;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import example.mathias.contactinformation.BE.ContactBE;
+import example.mathias.contactinformation.BLL.PictureUtils;
 import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
@@ -31,6 +33,7 @@ public class AddContactController {
     private Dialog mDialog;
     private ContactRecyclerViewAdapter mAdapter;
     private Context mContext;
+    private String mImageLocation;
 
     public AddContactController(Context context) {
 
@@ -96,6 +99,9 @@ public class AddContactController {
                 contact.setWebsite(addWebsite.getText().toString());
                 contact.setAddress(addAddress.getText().toString());
                 contact.setBirthDay(addBirthday.getText().toString());
+                if (mImageLocation != null) {
+                    contact.setPicture(mImageLocation);
+                }
 
                 ContactModel.get(view.getContext()).addContact(contact);
                 mAdapter.notifyDataSetChanged();
@@ -114,6 +120,16 @@ public class AddContactController {
                 mainContext.startCameraActivity();
             }
         });
+    }
+
+    /***
+     * Set the contact image to be displayed
+     * @param imageLocation
+     */
+    public void setContactImage(String imageLocation) {
+        mImageLocation = imageLocation;
+        Bitmap bitmap = PictureUtils.getScaledBitmap(imageLocation, 150, 150);
+        addPicture.setImageBitmap(bitmap);
     }
 
     private void findViewsByIds() {
