@@ -29,7 +29,7 @@ public class ContactInformationController {
     private TextView txtClose;
     private Button btnSave, btnDelete;
     private ImageView changePicture;
-    private EditText editContactName, editPhoneNumber, editEmail, editWebsite, editAddress;
+    private EditText editContactName, editPhoneNumber, editEmail, editWebsite, editAddress, editBirthday;
     private Dialog mDialog;
 
     private ContactBE mContact;
@@ -48,6 +48,7 @@ public class ContactInformationController {
     }
 
     private void setSelections() {
+        // TODO ALH: Remove unused?
         editContactName.setSelection(editContactName.getText().length());
         editPhoneNumber.setSelection(editPhoneNumber.getText().length());
         editEmail.setSelection(editEmail.getText().length());
@@ -96,6 +97,7 @@ public class ContactInformationController {
         editEmail = mDialog.findViewById(R.id.editEmail);
         editWebsite = mDialog.findViewById(R.id.editWebsite);
         editAddress = mDialog.findViewById(R.id.editAddress);
+        editBirthday = mDialog.findViewById(R.id.editBirthday);
     }
 
     /**
@@ -123,6 +125,7 @@ public class ContactInformationController {
                 contact.setMailAddress(editEmail.getText().toString());
                 contact.setWebsite(editWebsite.getText().toString());
                 contact.setAddress(editAddress.getText().toString());
+                contact.setBirthDay(editBirthday.getText().toString());
 
                 ContactModel.get(view.getContext()).updateContact(contact);
                 mContactActionController.updateContactInformation(contact);
@@ -199,13 +202,13 @@ public class ContactInformationController {
         mDialog.show();
     }
 
-    private void setContactInformation( ) {
+    private void setContactInformation() {
         editContactName.setText(mContact.getName());
         editAddress.setText(mContact.getAddress());
         editEmail.setText(mContact.getMailAddress());
         editPhoneNumber.setText(mContact.getPhoneNumber());
         editWebsite.setText(mContact.getWebsite());
-        // TODO ALH: Display Birthday
+        editBirthday.setText(mContact.getBirthDay());
         setSelections();
     }
 
