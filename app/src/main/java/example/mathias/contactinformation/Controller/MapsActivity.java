@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
+import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.R;
 
 
@@ -55,6 +56,8 @@ public class MapsActivity extends FragmentActivity
     private LocationRequest mLocationRequest;
     private EditText mTxtAddress, mTxtFriend;
     private Marker mCurrentLocationMarker;
+    private ContactBE mContact;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class MapsActivity extends FragmentActivity
 
             mTxtAddress = findViewById(R.id.txtAddress);
             mTxtFriend = findViewById(R.id.txtFriend);
+
 
             String location = mTxtAddress.getText().toString();
             String friendMarker = mTxtFriend.getText().toString();
@@ -175,6 +179,8 @@ public class MapsActivity extends FragmentActivity
         LatLng skovgaard = new LatLng(55.479509, 8.4635673);
         mMap.addMarker(new MarkerOptions().position(skovgaard).title("Skovgaard's crib"));
 
+
+
     }
 
     /**
@@ -224,6 +230,9 @@ public class MapsActivity extends FragmentActivity
         if (mClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mClient, this);
         }
+        // Moves the camera to your current position.
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latitudeAndLongitude));
+        mMap.animateCamera(CameraUpdateFactory.zoomBy(ZOOM_AREA));
     }
 
     /**

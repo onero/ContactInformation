@@ -116,10 +116,18 @@ public class ContactActionController {
             @Override
             public void onClick(View view) {
                 // TODO ALH: Implement!
+
+                directionToContact();
+
                 Toast.makeText(view.getContext(), "Getting direction...", Toast.LENGTH_LONG).show();
                 Log.d("CALL", "det virker!");
             }
         });
+    }
+
+    private void directionToContact() {
+        Intent mapIntent = new Intent(mContext, MapsActivity.class);
+        mContext.startActivity(mapIntent);
     }
 
     /**
