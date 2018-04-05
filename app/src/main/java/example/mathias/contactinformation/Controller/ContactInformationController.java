@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+
 import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.BLL.PictureUtils;
 import example.mathias.contactinformation.Model.ContactModel;
@@ -224,6 +226,12 @@ public class ContactInformationController {
     }
 
     private void deleteContact(Context context) {
+        if (mContact.hasPicture()) {
+            File image = new File(mContact.getPicture());
+            if (!image.delete()) {
+                Log.e("Image", "Couldn't delete image!");
+            }
+        }
         ContactModel.get(context).deleteContact(mContact.getId());
     }
 
