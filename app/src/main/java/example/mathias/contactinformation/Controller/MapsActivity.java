@@ -1,6 +1,8 @@
 package example.mathias.contactinformation.Controller;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -33,6 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
+import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.R;
 
 
@@ -43,12 +46,15 @@ public class MapsActivity extends FragmentActivity
         LocationListener {
 
     // Gets the currenct location of the user.
-    private final String CURRENT_LOCATION = "Current location";
+    private final String CURRENT_LOCATION = "My location";
     // If user don't agree to permission is denied text will appear.
     private final String PERMISSION_DENIED = "Permission denied..!";
     // The radius of the map shown for the user.
-    private final int ZOOM_AREA = 11;
+    private final int ZOOM_AREA = 14;
     public static final int REQUEST_LOCATION_CODE = 99;
+
+    public static final String EXTRA_CONTACT_NAME = "example.mathias.contactinformation.contact.name";
+    public static final String EXTRA_CONTACT_ADDRESS = "example.mathias.contactinformation.contact.address";
 
     private GoogleMap mMap;
     private GoogleApiClient mClient;
@@ -56,12 +62,14 @@ public class MapsActivity extends FragmentActivity
     private EditText mTxtAddress, mTxtFriend;
     private Marker mCurrentLocationMarker;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        // Checks the version of the googleMap.
+
+        // Checks the version of googleMap.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
@@ -81,6 +89,7 @@ public class MapsActivity extends FragmentActivity
 
             mTxtAddress = findViewById(R.id.txtAddress);
             mTxtFriend = findViewById(R.id.txtFriend);
+
 
             String location = mTxtAddress.getText().toString();
             String friendMarker = mTxtFriend.getText().toString();
@@ -113,7 +122,6 @@ public class MapsActivity extends FragmentActivity
                     } else {
                         markerOptions.title(friendMarker);
                     }
-
                     mMap.addMarker(markerOptions);
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 }
@@ -171,10 +179,49 @@ public class MapsActivity extends FragmentActivity
             mMap.setMyLocationEnabled(true);
         }
 
-        // Add a marker for Skovgaard's home.
-        LatLng skovgaard = new LatLng(55.479509, 8.4635673);
-        mMap.addMarker(new MarkerOptions().position(skovgaard).title("Skovgaard's crib"));
+        contactMarker();
 
+    }
+
+    /**
+     * adds the marker of the selected contact.
+     */
+    private void contactMarker() {
+        // Get the intent.
+        Intent intent = getIntent();
+        String contactName = intent.getStringExtra(EXTRA_CONTACT_NAME);
+        String contactAddress = intent.getStringExtra(EXTRA_CONTACT_ADDRESS);
+
+
+        if (contactName != null) {
+            List<Address> addressList = null;
+
+            Geocoder geocoder = new Geocoder(this);
+
+            try {
+                // there will only be one.
+                addressList = geocoder.getFromLocationName(contactAddress, 1);
+                // gets the first.
+                Address myAddress = addressList.get(0);
+
+                // For each address i want to get the LatLng.
+                LatLng latLng = new LatLng(myAddress.getLatitude(), myAddress.getLongitude());
+
+                // sets the contactName on the marker.
+                Marker marker = mMap.addMarker(new MarkerOptions().position(latLng)
+                        .title(contactName));
+
+                // shows the marker when googleMap is opening.
+                marker.showInfoWindow();
+
+                // Moves to the contacts marker.
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -216,14 +263,15 @@ public class MapsActivity extends FragmentActivity
         // Marks the new position.
         mCurrentLocationMarker = mMap.addMarker(markerOptions);
 
-        // Moves the camera to the new position.
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latitudeAndLongitude));
-        mMap.animateCamera(CameraUpdateFactory.zoomBy(ZOOM_AREA));
-
         // If no location is set.
         if (mClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mClient, this);
         }
+        // Moves the camera to your current position.
+//        mMap.animateCamera(CameraUpdateFactory.newLatLng(latitudeAndLongitude));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latitudeAndLongitude));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_AREA));
+
     }
 
     /**
@@ -270,7 +318,20 @@ public class MapsActivity extends FragmentActivity
         }
     }
 
-
+    /**
+     * Gets the map intent.
+     *
+     * @param content
+     * @param contactName
+     * @param contactAddress
+     * @return MapActivity intent
+     */
+    public static Intent newIntent(Context content, String contactName, String contactAddress) {
+        Intent intent = new Intent(content, MapsActivity.class);
+        intent.putExtra(EXTRA_CONTACT_NAME, contactName);
+        intent.putExtra(EXTRA_CONTACT_ADDRESS, contactAddress);
+        return intent;
+    }
 
     @Override
     public void onConnectionSuspended(int i) {
