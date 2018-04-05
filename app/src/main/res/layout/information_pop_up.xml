@@ -24,6 +24,22 @@
             android:textColor="@color/white"
             android:textSize="12sp" />
 
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="143dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="71dp"
+            android:layout_marginStart="53dp"
+            android:background="@drawable/button_delete"
+            android:text="@string/delete_contact"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSave"
+            app:layout_constraintEnd_toStartOf="@+id/txtClose"
+            app:layout_constraintStart_toEndOf="@+id/btnSave"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <TextView
             android:id="@+id/txtClose"
             android:layout_width="30dp"
@@ -73,6 +89,8 @@
                 android:id="@+id/editContactName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/name_hint"
+                android:textColorHint="@color/white"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
@@ -95,6 +113,8 @@
                 android:id="@+id/editPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/tel_hint"
+                android:textColorHint="@color/white"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
@@ -117,6 +137,8 @@
                 android:id="@+id/editEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/email_hint"
+                android:textColorHint="@color/white"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
@@ -139,6 +161,8 @@
                 android:id="@+id/editWebsite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/website_hint"
+                android:textColorHint="@color/white"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
@@ -161,19 +185,36 @@
                 android:id="@+id/editAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/address_hint"
+                android:textColorHint="@color/white"
                 android:textColor="@color/white"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
+        <!-- Birthday -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/delete_contact"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textColor="@color/red"
-            android:background="@drawable/button_delete"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="@string/birthday"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/addBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:hint="@string/dd_mm_yy"
+                android:textColorHint="@color/white"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

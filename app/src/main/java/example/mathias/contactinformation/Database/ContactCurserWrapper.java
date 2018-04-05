@@ -32,7 +32,6 @@ public class ContactCurserWrapper extends CursorWrapper {
         contact.setName(name);
         contact.setAddress(address);
         contact.setBirthDay(birthday);
-        contact.setLocation(location);
         contact.setMailAddress(mail);
         contact.setPhoneNumber(phone);
         contact.setWebsite(website);

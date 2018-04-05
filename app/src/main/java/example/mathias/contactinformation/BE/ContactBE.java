@@ -1,17 +1,11 @@
 package example.mathias.contactinformation.BE;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.media.Image;
 
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
-
-import example.mathias.contactinformation.R;
 
 /**
  * Created by Mathias on 19/03/2018.
@@ -27,7 +21,7 @@ public class ContactBE {
     private String mMailAddress;
     private String mWebsite;
     private Date mBirthDay;
-    private SimpleDateFormat mDateFormat, mTimeFormat;
+    private SimpleDateFormat mDateFormat;
     private String mPicture;
 
     public ContactBE() {
@@ -40,7 +34,6 @@ public class ContactBE {
         mWebsite = "";
         mBirthDay = new Date();
         mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        mTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         mPicture = "";
     }
 
@@ -54,7 +47,6 @@ public class ContactBE {
         mWebsite = "";
         mBirthDay = new Date();
         mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        mTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         mPicture = "";
 }
 
@@ -76,9 +68,6 @@ public class ContactBE {
 
     public String getLocation() {
         return mLocation.toString();
-    }
-
-    public void setLocation(String location) {
     }
 
     public String getPhoneNumber() {
@@ -109,8 +98,7 @@ public class ContactBE {
         return mBirthDay.toString();
     }
 
-    public void setBirthDay(String birthDay) {
-    }
+    public void setBirthDay(String birthDay) {}
 
     public SimpleDateFormat getDateFormat() {
         return mDateFormat;
@@ -118,14 +106,6 @@ public class ContactBE {
 
     public void setDateFormat(SimpleDateFormat dateFormat) {
         mDateFormat = dateFormat;
-    }
-
-    public SimpleDateFormat getTimeFormat() {
-        return mTimeFormat;
-    }
-
-    public void setTimeFormat(SimpleDateFormat timeFormat) {
-        mTimeFormat = timeFormat;
     }
 
     public String getPicture() {
