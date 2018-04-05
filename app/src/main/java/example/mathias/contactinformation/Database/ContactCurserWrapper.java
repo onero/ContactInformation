@@ -2,6 +2,7 @@ package example.mathias.contactinformation.Database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
+
 import java.util.UUID;
 
 import example.mathias.contactinformation.BE.ContactBE;
@@ -32,7 +33,6 @@ public class ContactCurserWrapper extends CursorWrapper {
         contact.setName(name);
         contact.setAddress(address);
         contact.setBirthDay(birthday);
-        contact.setLocation(location);
         contact.setMailAddress(mail);
         contact.setPhoneNumber(phone);
         contact.setWebsite(website);
