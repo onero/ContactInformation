@@ -2,9 +2,6 @@ package example.mathias.contactinformation.BE;
 
 import android.location.Location;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -20,8 +17,7 @@ public class ContactBE {
     private String mPhoneNumber;
     private String mMailAddress;
     private String mWebsite;
-    private Date mBirthDay;
-    private SimpleDateFormat mDateFormat;
+    private String mBirthDay;
     private String mPicture;
 
     public ContactBE() {
@@ -32,8 +28,7 @@ public class ContactBE {
         mPhoneNumber = "";
         mMailAddress = "";
         mWebsite = "";
-        mBirthDay = new Date();
-        mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        mBirthDay = "";
         mPicture = "";
     }
 
@@ -45,10 +40,9 @@ public class ContactBE {
         mPhoneNumber = "";
         mMailAddress = "";
         mWebsite = "";
-        mBirthDay = new Date();
-        mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        mBirthDay = "";
         mPicture = "";
-}
+    }
 
     public String getName() {
         return mName;
@@ -95,17 +89,11 @@ public class ContactBE {
     }
 
     public String getBirthDay() {
-        return mBirthDay.toString();
+        return mBirthDay;
     }
 
-    public void setBirthDay(String birthDay) {}
-
-    public SimpleDateFormat getDateFormat() {
-        return mDateFormat;
-    }
-
-    public void setDateFormat(SimpleDateFormat dateFormat) {
-        mDateFormat = dateFormat;
+    public void setBirthDay(String birthDayAsString) {
+        mBirthDay = birthDayAsString;
     }
 
     public String getPicture() {

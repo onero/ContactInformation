@@ -10,5 +10,6 @@
     <color name="white">#fff</color>
     <color name="purple">#7d299e</color>
     <color name="red">#c62727</color>
+    <color name="hint_color">#878b91</color>
 
 </resources>

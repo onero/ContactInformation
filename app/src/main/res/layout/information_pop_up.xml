@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="350dp"
-    android:layout_height="475dp"
-    android:layout_gravity="center"
-    android:background="@color/blueDark"
-    android:orientation="vertical"
-    android:padding="5dp">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="350dp"
+              android:layout_height="490dp"
+              android:layout_gravity="center"
+              android:background="@color/blueDark"
+              android:orientation="vertical"
+              android:padding="5dp">
 
     <android.support.constraint.ConstraintLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnSave"
@@ -22,7 +22,7 @@
             android:background="@drawable/button_save"
             android:text="@string/save"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
         <Button
             android:id="@+id/btnDelete"
@@ -50,16 +50,16 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
 
         <!--Profile picture-->
         <ImageView
@@ -68,126 +68,126 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:src="@raw/monkey" />
+            android:src="@raw/monkey"/>
 
         <!--Contact name-->
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:paddingTop="5dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textSize="16sp"
+                android:text="@string/contactName"
                 android:textColor="@color/white"
-                android:text="@string/contactName"/>
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/editContactName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name_hint"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"/>
 
         </LinearLayout>
 
         <!--Phone-->
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textSize="16sp"
+                android:text="@string/phone_number"
                 android:textColor="@color/white"
-                android:text="@string/phone_number"/>
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/editPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/tel_hint"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"/>
 
         </LinearLayout>
 
         <!-- Mail -->
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textSize="16sp"
+                android:text="@string/email"
                 android:textColor="@color/white"
-                android:text="@string/email"/>
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/editEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email_hint"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"/>
 
         </LinearLayout>
 
         <!-- WEB -->
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textSize="16sp"
+                android:text="@string/website"
                 android:textColor="@color/white"
-                android:text="@string/website"/>
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/editWebsite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/website_hint"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"/>
 
         </LinearLayout>
 
         <!-- Address -->
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
-                android:textSize="16sp"
+                android:text="@string/address"
                 android:textColor="@color/white"
-                android:text="@string/address"/>
+                android:textSize="16sp"/>
 
             <EditText
                 android:id="@+id/editAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/address_hint"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textColorHint="@color/hint_color"/>
 
         </LinearLayout>
 
@@ -206,13 +206,13 @@
                 android:textSize="16sp"/>
 
             <EditText
-                android:id="@+id/addBirthday"
+                android:id="@+id/editBirthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/birthday_hint"
                 android:inputType="text"
                 android:textColor="@color/white"
-                android:hint="@string/dd_mm_yy"
-                android:textColorHint="@color/white"/>
+                android:textColorHint="@color/hint_color"/>
 
         </LinearLayout>
 

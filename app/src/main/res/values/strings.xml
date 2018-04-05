@@ -25,7 +25,7 @@
     <string name="yes">YES</string>
     <string name="cancel">CANCEL</string>
     <string name="birthday">Birthday</string>
-    <string name="dd_mm_yy">DD/MM/YY</string>
+    <string name="birthday_hint">DD/MM/YYYY</string>
     <string name="address_hint">Silcon Allé 1, Kolding</string>
     <string name="website_hint">bildebear.dk</string>
     <string name="email_hint">bild@bear.dk</string>

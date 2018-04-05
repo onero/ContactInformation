@@ -2,6 +2,7 @@ package example.mathias.contactinformation.Database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
+
 import java.util.UUID;
 
 import example.mathias.contactinformation.BE.ContactBE;
