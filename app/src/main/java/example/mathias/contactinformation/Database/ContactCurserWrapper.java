@@ -28,6 +28,7 @@ public class ContactCurserWrapper extends CursorWrapper {
         String mail = getString(getColumnIndex(ContactTable.Cols.MAIL));
         String phone = getString(getColumnIndex(ContactTable.Cols.PHONE));
         String website = getString(getColumnIndex(ContactTable.Cols.WEBSITE));
+        String picture = getString(getColumnIndex(ContactTable.Cols.PICTURE));
 
         ContactBE contact = new ContactBE(UUID.fromString(uuidString));
         contact.setName(name);
@@ -36,6 +37,7 @@ public class ContactCurserWrapper extends CursorWrapper {
         contact.setMailAddress(mail);
         contact.setPhoneNumber(phone);
         contact.setWebsite(website);
+        contact.setPicture(picture);
 
         return contact;
     }

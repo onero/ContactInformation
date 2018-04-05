@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.io.InputStream;
 
 import example.mathias.contactinformation.BE.ContactBE;
+import example.mathias.contactinformation.BLL.PictureUtils;
 import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
@@ -30,6 +31,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
     /**
      * Constructor for getting the model from the outside.
+     *
      * @param contactModel
      */
     public ContactRecyclerViewAdapter(ContactModel contactModel) {
@@ -39,6 +41,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
     /**
      * Creates the Holder for the RecycleView.
+     *
      * @param parent
      * @param viewType
      * @return
@@ -51,6 +54,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
     /**
      * Binds the holder to a ContactBE.
+     *
      * @param holder
      * @param position
      */
@@ -62,6 +66,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
     /**
      * Gets the Amount of Contacts from the model.
+     *
      * @return
      */
     @Override
@@ -72,7 +77,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     /**
      * Inner class for each row in RecyclerView.
      */
-    public class RecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class RecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // Xml Components.
         private TextView mName, mPhoneNumber;
@@ -83,6 +88,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
         /**
          * Constructor for instantiation and inflation of the views.
+         *
          * @param inflater
          * @param parent
          */
@@ -97,19 +103,28 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
         /**
          * Binds the data from the contact to the row.
+         *
          * @param contact
          */
         public void bind(ContactBE contact) {
             mContact = contact;
             mName.setText(mContact.getName());
-            InputStream imageStream = itemView.getResources().openRawResource(R.raw.monkey);
-            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+            Bitmap bitmap = null;
+            // Check for contact image
+            if (contact.getPicture().length() > 1) {
+                bitmap = PictureUtils.getScaledBitmap(contact.getPicture(), 150, 150);
+            } else {
+                // Insert nice monkey!
+                InputStream imageStream = itemView.getResources().openRawResource(R.raw.monkey);
+                bitmap = BitmapFactory.decodeStream(imageStream);
+            }
             mImage.setImageBitmap(bitmap);
             mPhoneNumber.setText(mContact.getPhoneNumber());
         }
 
         /**
          * Shows the PopUp when row is clicked.
+         *
          * @param
          */
         @Override

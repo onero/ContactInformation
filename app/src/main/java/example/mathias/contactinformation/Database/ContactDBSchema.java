@@ -21,6 +21,7 @@ public class ContactDBSchema {
             public static final String MAIL = "mail";
             public static final String WEBSITE = "website";
             public static final String BIRTHDAY = "birthday";
+            public static final String PICTURE = "picture";
         }
     }
 }

@@ -114,4 +114,7 @@ public class ContactBE {
     }
 
 
+    public boolean hasPicture() {
+        return mPicture != null && mPicture.length() > 1;
+    }
 }
