@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +12,6 @@ import java.util.UUID;
 import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.Database.ContactBaseHelper;
 import example.mathias.contactinformation.Database.ContactCurserWrapper;
-
 import example.mathias.contactinformation.Database.ContactDBSchema.ContactTable;
 
 /**
@@ -72,24 +70,6 @@ public class ContactModel {
     }
 
     /**
-     * the public GetOne by Id that handles db contact.
-     * @param id
-     * @return one specific ContactBE
-     */
-    public ContactBE getContact(UUID id) {
-
-        try (ContactCurserWrapper cursor = queryContacts(
-                ContactTable.Cols.UUID + " = ?",
-                new String[]{id.toString()}
-        )) {
-            if (cursor.getCount() == 0) return null;
-
-            cursor.moveToFirst();
-            return cursor.getContact();
-        }
-    }
-
-    /**
      * Helper method for putting Content Values, for better cohesion.
      * @param contact
      * @return the ContentValues matching the db.
@@ -125,18 +105,11 @@ public class ContactModel {
         String uuidString = contact.getId().toString();
         ContentValues values = getContentValues(contact);
 
+        // TODO ALH: Refactor to Database :P
         mDatabase.update(ContactTable.NAME, values,
                 ContactTable.Cols.UUID + " = ?",
                 new String [] {uuidString});
     }
-
-    /**
-     * To be Implemented
-     */
-//    public File getPhotoFile(ContactBE contact) {
-//        File fileDir = mContext.getFilesDir();
-//        return new File(fileDir, contact.getPicture());
-//    }
 
     /**
      * Helper method for getting a CursorWrapper.

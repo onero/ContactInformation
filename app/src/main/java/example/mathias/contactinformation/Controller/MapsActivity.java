@@ -6,21 +6,19 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -55,8 +53,6 @@ public class MapsActivity extends FragmentActivity
     private GoogleMap mMap;
     private GoogleApiClient mClient;
     private LocationRequest mLocationRequest;
-    private Location mLastLocation;
-    private Button mBtnSearch;
     private EditText mTxtAddress, mTxtFriend;
     private Marker mCurrentLocationMarker;
 
@@ -200,7 +196,7 @@ public class MapsActivity extends FragmentActivity
      */
     @Override
     public void onLocationChanged(Location location) {
-        mLastLocation = location;
+        Location lastLocation = location;
 
         if (mCurrentLocationMarker != null) {
             mCurrentLocationMarker.remove();

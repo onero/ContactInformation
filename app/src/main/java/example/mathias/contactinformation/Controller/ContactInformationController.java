@@ -144,6 +144,7 @@ public class ContactInformationController {
         changePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // TODO ALH: Implement!
                 Toast.makeText(view.getContext(), "Changing picture...", Toast.LENGTH_LONG).show();
                 Log.d("Change picture", "det virker!");
             }
@@ -204,6 +205,7 @@ public class ContactInformationController {
         editEmail.setText(mContact.getMailAddress());
         editPhoneNumber.setText(mContact.getPhoneNumber());
         editWebsite.setText(mContact.getWebsite());
+        // TODO ALH: Display Birthday
         setSelections();
     }
 
@@ -213,6 +215,5 @@ public class ContactInformationController {
 
     private void closeInformationController() {
         mDialog.dismiss();
-        Log.d("CLOSE", "det virker!");
     }
 }
