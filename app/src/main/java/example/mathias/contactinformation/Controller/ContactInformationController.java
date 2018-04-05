@@ -156,13 +156,23 @@ public class ContactInformationController {
         changePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO ALH: Implement!
-                Toast.makeText(view.getContext(), "Changing picture...", Toast.LENGTH_LONG).show();
-                Log.d("Change picture", "det virker!");
+                if (mContact.hasPicture()) {
+                    ContactListActivity mainContext = (ContactListActivity) ContactListActivity.sContext;
+                    mainContext.startCameraActivity(mContact.getPicture());
+                }
             }
         });
 
 
+    }
+
+    /***
+     * Set the contact image to be displayed
+     * @param imageLocation
+     */
+    public void setContactImage(String imageLocation) {
+        Bitmap bitmap = PictureUtils.getScaledBitmap(imageLocation, 150, 150);
+        changePicture.setImageBitmap(bitmap);
     }
 
     private void alert(Context context) {

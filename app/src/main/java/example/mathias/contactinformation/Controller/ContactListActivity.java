@@ -3,7 +3,6 @@ package example.mathias.contactinformation.Controller;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,9 +25,12 @@ import example.mathias.contactinformation.R;
 
 public class ContactListActivity extends AppCompatActivity {
 
-    public static final int REQUEST_CODE_CAMERA = 1;
+    public static Context sContext;
+    public static final int REQUEST_CODE_CAMERA_ADD = 1;
+    public static final int REQUEST_CODE_CAMERA_EDIT = 2;
     private final String DIRECTORY = Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES) + "/ContactInformation";
+
 
     // Toolbar title
     private static final String TOOLBAR_TITLE = "Contacts";
@@ -45,6 +47,7 @@ public class ContactListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     private AddContactController mAddContactController;
+    public static ContactInformationController sContactInformationController;
 
     ActionBar mActionBar;
 
@@ -56,6 +59,7 @@ public class ContactListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mContext = this;
+        sContext = this;
 
         super.onCreate(savedInstanceState);
 
@@ -116,9 +120,14 @@ public class ContactListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) return;
         switch (requestCode) {
-            case REQUEST_CODE_CAMERA:
+            case REQUEST_CODE_CAMERA_ADD:
                 if (mPhotoFile.exists()) {
                     mAddContactController.setContactImage(mPhotoFile.getPath());
+                }
+                break;
+            case REQUEST_CODE_CAMERA_EDIT:
+                if (mPhotoFile.exists()) {
+                    sContactInformationController.setContactImage(mPhotoFile.getPath());
                 }
                 break;
             default:
@@ -131,7 +140,13 @@ public class ContactListActivity extends AppCompatActivity {
         Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         mPhotoFile = new File(DIRECTORY, "IMG " + UUID.randomUUID().toString() + ".jpg");
         captureImage.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhotoFile));
-        startActivityForResult(captureImage, REQUEST_CODE_CAMERA);
+        startActivityForResult(captureImage, REQUEST_CODE_CAMERA_ADD);
+    }
+    public void startCameraActivity(String imageLocation) {
+        Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mPhotoFile = new File(imageLocation);
+        captureImage.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhotoFile));
+        startActivityForResult(captureImage, REQUEST_CODE_CAMERA_EDIT);
     }
 
     /**

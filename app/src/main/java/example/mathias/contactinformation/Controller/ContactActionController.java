@@ -7,12 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.BLL.PictureUtils;
@@ -76,6 +74,7 @@ public class ContactActionController {
             @Override
             public void onClick(View view) {
                 info = new ContactInformationController(view.getContext());
+                ContactListActivity.sContactInformationController = info;
                 info.showInfo(mContact, mDialog, mAdapter, mContactActionController);
             }
         });
