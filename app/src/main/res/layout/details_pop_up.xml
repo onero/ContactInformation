@@ -49,11 +49,12 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/imgContact"
             android:layout_width="194dp"
             android:layout_height="184dp"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:src="@raw/monkey" />
+            android:src="@raw/monkey"/>
 
         <TextView
 

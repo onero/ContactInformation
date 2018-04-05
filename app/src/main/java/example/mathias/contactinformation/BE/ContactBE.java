@@ -96,16 +96,25 @@ public class ContactBE {
         mBirthDay = birthDayAsString;
     }
 
-    public String getPicture() {
-        return "IMG " + getId().toString() + ".jpg";
-    }
-
     public UUID getId() {
 
         return mId;
     }
 
+    public String getPicture() {
+        return mPicture;
+    }
+
+    public void setPicture(String picture) {
+        mPicture = picture;
+    }
+
     public void setId(UUID id) {
         mId = id;
+    }
+
+
+    public boolean hasPicture() {
+        return mPicture != null && mPicture.length() > 1;
     }
 }

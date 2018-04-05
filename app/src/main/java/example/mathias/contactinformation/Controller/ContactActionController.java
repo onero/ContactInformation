@@ -3,16 +3,19 @@ package example.mathias.contactinformation.Controller;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import example.mathias.contactinformation.BE.ContactBE;
+import example.mathias.contactinformation.BLL.PictureUtils;
 import example.mathias.contactinformation.R;
 
 /**
@@ -23,6 +26,7 @@ public class ContactActionController {
 
     private TextView txtClose, txtName, txtInfo;
     private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
+    private ImageView imgContact;
     private Dialog mDialog;
     private ContactInformationController info;
     private ContactBE mContact;
@@ -51,6 +55,7 @@ public class ContactActionController {
         txtDirection = mDialog.findViewById(R.id.txtDirection);
         txtName = mDialog.findViewById(R.id.txtName);
         txtInfo = mDialog.findViewById(R.id.txtInfo);
+        imgContact = mDialog.findViewById(R.id.imgContact);
     }
 
     /**
@@ -179,6 +184,10 @@ public class ContactActionController {
         mAdapter = adapter;
         mContact = contact;
         txtName.setText(contact.getName());
+        if (mContact.hasPicture()) {
+            Bitmap bitmap = PictureUtils.getScaledBitmap(mContact.getPicture(), 150, 150);
+            imgContact.setImageBitmap(bitmap);
+        }
         mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mDialog.show();
     }

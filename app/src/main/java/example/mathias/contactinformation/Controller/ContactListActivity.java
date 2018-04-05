@@ -1,23 +1,34 @@
 package example.mathias.contactinformation.Controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.io.File;
+import java.util.UUID;
+
 import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
 public class ContactListActivity extends AppCompatActivity {
+
+    public static final int REQUEST_CODE_CAMERA = 1;
+    private final String DIRECTORY = Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_PICTURES) + "/ContactInformation";
 
     // Toolbar title
     private static final String TOOLBAR_TITLE = "Contacts";
@@ -28,6 +39,8 @@ public class ContactListActivity extends AppCompatActivity {
     // Stored Contact RecyclerViewAdapter.
     private ContactRecyclerViewAdapter adapter;
 
+    private File mPhotoFile;
+
     // Stored RecyclerView.
     private RecyclerView recyclerView;
 
@@ -37,6 +50,7 @@ public class ContactListActivity extends AppCompatActivity {
 
     /**
      * Instanciation of Context, Dialog, RecyclerView and RecyclerViewAdapter.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -63,6 +77,7 @@ public class ContactListActivity extends AppCompatActivity {
 
     /**
      * When starting up the application create the menu.
+     *
      * @param menu
      * @return
      */
@@ -75,6 +90,7 @@ public class ContactListActivity extends AppCompatActivity {
 
     /**
      * Switch for our menu so it is easy to add more later on.
+     *
      * @param item
      * @return
      */
@@ -96,11 +112,32 @@ public class ContactListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_CODE_CAMERA:
+                if (mPhotoFile.exists()) {
+                    mAddContactController.setContactImage(mPhotoFile.getPath());
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
+        }
+    }
+
+    public void startCameraActivity() {
+        Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mPhotoFile = new File(DIRECTORY, "IMG " + UUID.randomUUID().toString() + ".jpg");
+        captureImage.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhotoFile));
+        startActivityForResult(captureImage, REQUEST_CODE_CAMERA);
+    }
+
     /**
      * Add a Contact.
      */
     private void addContact() {
-
         mAddContactController = new AddContactController(this);
         mAddContactController.showAddContactPopUp(adapter);
     }

@@ -84,6 +84,7 @@ public class ContactModel {
         values.put(ContactTable.Cols.MAIL, contact.getMailAddress());
         values.put(ContactTable.Cols.WEBSITE, contact.getWebsite());
         values.put(ContactTable.Cols.BIRTHDAY, contact.getBirthDay());
+        values.put(ContactTable.Cols.PICTURE, contact.getPicture());
 
         return values;
     }

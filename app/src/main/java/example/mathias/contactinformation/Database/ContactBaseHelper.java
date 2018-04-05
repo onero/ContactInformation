@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.jar.Attributes;
-
 import example.mathias.contactinformation.Database.ContactDBSchema.ContactTable;
 /**
  * Created by Mathias on 26/03/2018.
@@ -34,6 +32,7 @@ public class ContactBaseHelper extends SQLiteOpenHelper {
                 ContactTable.Cols.PHONE + ", " +
                 ContactTable.Cols.MAIL + ", " +
                 ContactTable.Cols.WEBSITE + ", " +
+                ContactTable.Cols.PICTURE + ", " +
                 ContactTable.Cols.BIRTHDAY + ")"
         );
     }

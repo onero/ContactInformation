@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.InputType;
@@ -16,7 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+
 import example.mathias.contactinformation.BE.ContactBE;
+import example.mathias.contactinformation.BLL.PictureUtils;
 import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
@@ -126,6 +130,11 @@ public class ContactInformationController {
                 contact.setWebsite(editWebsite.getText().toString());
                 contact.setAddress(editAddress.getText().toString());
                 contact.setBirthDay(editBirthday.getText().toString());
+                if (mContact.hasPicture()) {
+                    contact.setPicture(mContact.getPicture());
+                } else {
+                    contact.setPicture("");
+                }
 
                 ContactModel.get(view.getContext()).updateContact(contact);
                 mContactActionController.updateContactInformation(contact);
@@ -209,10 +218,20 @@ public class ContactInformationController {
         editPhoneNumber.setText(mContact.getPhoneNumber());
         editWebsite.setText(mContact.getWebsite());
         editBirthday.setText(mContact.getBirthDay());
+        if (mContact.hasPicture()) {
+            Bitmap bitmap = PictureUtils.getScaledBitmap(mContact.getPicture(), 150, 150);
+            changePicture.setImageBitmap(bitmap);
+        }
         setSelections();
     }
 
     private void deleteContact(Context context) {
+        if (mContact.hasPicture()) {
+            File image = new File(mContact.getPicture());
+            if (!image.delete()) {
+                Log.e("Image", "Couldn't delete image!");
+            }
+        }
         ContactModel.get(context).deleteContact(mContact.getId());
     }
 
