@@ -49,6 +49,7 @@ public class ContactListActivity extends AppCompatActivity {
 
         // Sets the toolbar.
         mActionBar.setTitle(TOOLBAR_TITLE);
+        // TODO ALH: Skovgaard 'R.color......'
         mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1e2028")));
 
         // Recyclerview
@@ -86,7 +87,7 @@ public class ContactListActivity extends AppCompatActivity {
                 addContact();
                 return true;
             case R.id.btn_sort_list:
-//                showHelp();
+                // TODO ALH: Consider implementation?
                 return true;
             case R.id.btn_map:
                 map();
@@ -103,20 +104,6 @@ public class ContactListActivity extends AppCompatActivity {
 
         mAddContactController = new AddContactController(this);
         mAddContactController.showAddContactPopUp(adapter);
-
-//        ContactBE contactToAdd = new ContactBE();
-
-//        contactToAdd.setName("Skovgaard");
-//        contactToAdd.setAddress("Amagervej 14, 6705 Esbjerg");
-//        contactToAdd.setPhoneNumber("08070605");
-//        contactToAdd.setMailAddress("skovgaard@test.dk");
-//        contactToAdd.setWebsite("skovgaard.dk");
-
-//        ContactModel.get(mContext).addContact(contactToAdd);
-
-//        adapter.notifyDataSetChanged();
-
-//        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
     }
 
     /**

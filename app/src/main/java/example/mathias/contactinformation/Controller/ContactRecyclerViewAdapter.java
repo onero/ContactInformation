@@ -3,15 +3,14 @@ package example.mathias.contactinformation.Controller;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.InputStream;
+
 import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
@@ -23,9 +22,6 @@ import example.mathias.contactinformation.R;
 
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.RecycleHolder> {
 
-    // Variables for assigning data.
-    private TextView txtClose, txtName;
-    private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
     private ContactActionController mContactActionController;
 
     // Stored Model from the outside.
@@ -118,10 +114,8 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
          */
         @Override
         public void onClick(View view) {
-
             mContactActionController = new ContactActionController(view.getContext());
             mContactActionController.showContactActionPopUp(mContact, mAdapter);
-
         }
     }
 }

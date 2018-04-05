@@ -67,6 +67,9 @@ public class AddContactController {
         addAddress.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
         addAddress.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        // TODO ALH: Display Birthday
+
     }
 
     private void setOnClickListeners() {
