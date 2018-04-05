@@ -49,8 +49,7 @@ public class ContactListActivity extends AppCompatActivity {
 
         // Sets the toolbar.
         mActionBar.setTitle(TOOLBAR_TITLE);
-        // TODO ALH: Skovgaard 'R.color......'
-        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1e2028")));
+        mActionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blueDarker)));
 
         // Recyclerview
         setContentView(R.layout.activity_main_recycler);

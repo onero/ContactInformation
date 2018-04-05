@@ -115,11 +115,19 @@ public class ContactActionController {
         txtDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO ALH: Implement!
-                Toast.makeText(view.getContext(), "Getting direction...", Toast.LENGTH_LONG).show();
-                Log.d("CALL", "det virker!");
+
+                directionToContact();
+
             }
         });
+    }
+
+    /**
+     * Show a marker where the selected contact lives and get the direction.
+     */
+    private void directionToContact() {
+        Intent mapIntent = MapsActivity.newIntent(mContext, mContact.getName(), mContact.getAddress());
+        mContext.startActivity(mapIntent);
     }
 
     /**
