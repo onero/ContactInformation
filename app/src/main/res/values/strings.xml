@@ -3,4 +3,25 @@
     <string name="app_name">Contacts</string>
     <string name="new_contact">New Contact</string>
     <string name="sort_list">Sort List</string>
+    <string name="x">X</string>
+    <string name="contact_name">Ugly monkey</string>
+    <string name="call">CALL</string>
+    <string name="sms">SMS</string>
+    <string name="mail">E-mail</string>
+    <string name="contact_mail">example@something.com</string>
+    <string name="web">Website</string>
+    <string name="contact_web">www.EtEllerAndet.dk</string>
+    <string name="get_direction">Get direction</string>
+    <string name="information">i</string>
+    <string name="website">Website:</string>
+    <string name="email">E-mail:</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="contactName">Contact name:</string>
+    <string name="save">Save</string>
+    <string name="address">Address:</string>
+    <string name="delete_contact">Delete contact</string>
+    <string name="title_delete">DELETING..!</string>
+    <string name="message_delete">Are you sure you want to delete this contact..?</string>
+    <string name="yes">YES</string>
+    <string name="cancel">CANCEL</string>
 </resources>

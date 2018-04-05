@@ -3,49 +3,93 @@ package example.mathias.contactinformation.Controller;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.InputStream;
 import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.Model.ContactModel;
 import example.mathias.contactinformation.R;
 
+
 /**
  * Created by Mathias.
  */
 
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.RecycleHolder> {
-    private ContactModel mContactModel = ContactModel.getInstance();
 
+    // Variables for assigning data.
+    private TextView txtClose, txtName;
+    private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
+    private ContactActionController mContactActionController;
+
+    // Stored Model from the outside.
+    private ContactModel mContactModel;
+    private ContactRecyclerViewAdapter mAdapter;
+
+    /**
+     * Constructor for getting the model from the outside.
+     * @param contactModel
+     */
+    public ContactRecyclerViewAdapter(ContactModel contactModel) {
+        mContactModel = contactModel;
+        mAdapter = this;
+    }
+
+    /**
+     * Creates the Holder for the RecycleView.
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public RecycleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         return new RecycleHolder(layoutInflater, parent);
     }
 
+    /**
+     * Binds the holder to a ContactBE.
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(RecycleHolder holder, int position) {
         ContactBE contact = mContactModel.getContacts().get(position);
         holder.bind(contact);
     }
 
+    /**
+     * Gets the Amount of Contacts from the model.
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mContactModel.getContacts().size();
     }
 
+    /**
+     * Inner class for each row in RecyclerView.
+     */
     public class RecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mName;
-        private ImageView mImage;
-        private TextView mPhoneNumber;
 
+        // Xml Components.
+        private TextView mName, mPhoneNumber;
+        private ImageView mImage;
+
+        // The contact to bind.
         private ContactBE mContact;
 
+        /**
+         * Constructor for instantiation and inflation of the views.
+         * @param inflater
+         * @param parent
+         */
         public RecycleHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.row_item, parent, false));
             itemView.setOnClickListener(this);
@@ -55,6 +99,10 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             mPhoneNumber = itemView.findViewById(R.id.txtPhone);
         }
 
+        /**
+         * Binds the data from the contact to the row.
+         * @param contact
+         */
         public void bind(ContactBE contact) {
             mContact = contact;
             mName.setText(mContact.getName());
@@ -64,9 +112,16 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             mPhoneNumber.setText(mContact.getPhoneNumber());
         }
 
+        /**
+         * Shows the PopUp when row is clicked.
+         * @param
+         */
         @Override
-        public void onClick(View v) {
-            Toast.makeText(v.getContext(), mContact.getName(), Toast.LENGTH_SHORT).show();
+        public void onClick(View view) {
+
+            mContactActionController = new ContactActionController(view.getContext());
+            mContactActionController.showContactActionPopUp(mContact, mAdapter);
+
         }
     }
 }
