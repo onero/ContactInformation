@@ -8,6 +8,13 @@ import android.graphics.BitmapFactory;
  */
 public class PictureUtils {
 
+    /***
+     * Return Bitmap, scaled to the specific requirements of provided width and height
+     * @param path of image to scale
+     * @param destWidth of new Bitmap
+     * @param destHeight of new Bitmap
+     * @return scaled Bitmap
+     */
     public static Bitmap getScaledBitmap(String path, int destWidth, int destHeight) {
         // Read in the dimensions of the image on disk
         BitmapFactory.Options options = new BitmapFactory.Options();

@@ -1,7 +1,6 @@
 package example.mathias.contactinformation.Controller;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -25,9 +24,7 @@ import example.mathias.contactinformation.R;
 
 public class ContactListActivity extends AppCompatActivity {
 
-    public static Context sContext;
     public static final int REQUEST_CODE_CAMERA_ADD = 1;
-    public static final int REQUEST_CODE_CAMERA_EDIT = 2;
     private final String DIRECTORY = Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES) + "/ContactInformation";
 
@@ -35,21 +32,17 @@ public class ContactListActivity extends AppCompatActivity {
     // Toolbar title
     private static final String TOOLBAR_TITLE = "Contacts";
 
-    // Stored Context.
-    private Context mContext;
-
     // Stored Contact RecyclerViewAdapter.
     private ContactRecyclerViewAdapter adapter;
 
+    // Reference to Contact image created
     private File mPhotoFile;
 
     // Stored RecyclerView.
     private RecyclerView recyclerView;
 
+    // External Controller references
     private AddContactController mAddContactController;
-    public static ContactInformationController sContactInformationController;
-
-    ActionBar mActionBar;
 
     /**
      * Instanciation of Context, Dialog, RecyclerView and RecyclerViewAdapter.
@@ -58,24 +51,21 @@ public class ContactListActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        mContext = this;
-        sContext = this;
-
         super.onCreate(savedInstanceState);
 
-        mActionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
 
         // Sets the toolbar.
-        mActionBar.setTitle(TOOLBAR_TITLE);
-        mActionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blueDarker)));
+        actionBar.setTitle(TOOLBAR_TITLE);
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blueDarker)));
 
         // Recyclerview
         setContentView(R.layout.activity_main_recycler);
         recyclerView = findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Incredible recyclerview adapter
-        adapter = new ContactRecyclerViewAdapter(ContactModel.get(mContext));
+        adapter = new ContactRecyclerViewAdapter(ContactModel.get(this));
         recyclerView.setAdapter(adapter);
     }
 
@@ -105,17 +95,23 @@ public class ContactListActivity extends AppCompatActivity {
             case R.id.btn_new_contact:
                 addContact();
                 return true;
-            case R.id.btn_sort_list:
-                // TODO ALH: Consider implementation?
-                return true;
+//            case R.id.btn_sort_list:
+//                // TODO ALH: Consider implementation?
+//                return true;
             case R.id.btn_map:
-                map();
+                startMap();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    /***
+     * When result from activity gets back
+     * @param requestCode
+     * @param resultCode
+     * @param data from the intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) return;
@@ -125,28 +121,21 @@ public class ContactListActivity extends AppCompatActivity {
                     mAddContactController.setContactImage(mPhotoFile.getPath());
                 }
                 break;
-            case REQUEST_CODE_CAMERA_EDIT:
-                if (mPhotoFile.exists()) {
-                    sContactInformationController.setContactImage(mPhotoFile.getPath());
-                }
-                break;
             default:
                 super.onActivityResult(requestCode, resultCode, data);
                 break;
         }
     }
 
+    /***
+     * Start the camera activity
+     * Remarks: Due to current implementation, the camera must be started from this controller
+     */
     public void startCameraActivity() {
         Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         mPhotoFile = new File(DIRECTORY, "IMG " + UUID.randomUUID().toString() + ".jpg");
         captureImage.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhotoFile));
         startActivityForResult(captureImage, REQUEST_CODE_CAMERA_ADD);
-    }
-    public void startCameraActivity(String imageLocation) {
-        Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        mPhotoFile = new File(imageLocation);
-        captureImage.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhotoFile));
-        startActivityForResult(captureImage, REQUEST_CODE_CAMERA_EDIT);
     }
 
     /**
@@ -160,7 +149,7 @@ public class ContactListActivity extends AppCompatActivity {
     /**
      * Starts up a new Activity for maps.
      */
-    private void map() {
+    private void startMap() {
         Intent intent = new Intent(ContactListActivity.this, MapsActivity.class);
         startActivity(intent);
     }

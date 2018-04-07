@@ -60,7 +60,6 @@ public class ContactActionController {
      * Sets Click Listeners on all the clickable views in the PopUp.
      */
     private void setOnClickListeners() {
-
         // Close
         txtClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +73,6 @@ public class ContactActionController {
             @Override
             public void onClick(View view) {
                 info = new ContactInformationController(view.getContext());
-                ContactListActivity.sContactInformationController = info;
                 info.showInfo(mContact, mDialog, mAdapter, mContactActionController);
             }
         });
@@ -83,7 +81,6 @@ public class ContactActionController {
         txtCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 callContact();
             }
         });
@@ -92,7 +89,6 @@ public class ContactActionController {
         txtSms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 smsContact();
             }
         });
@@ -101,7 +97,6 @@ public class ContactActionController {
         txtMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 mailingContact();
             }
         });
@@ -110,8 +105,7 @@ public class ContactActionController {
         txtWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                websiteOfContact();
+                openContactWebsite();
             }
         });
 
@@ -119,9 +113,7 @@ public class ContactActionController {
         txtDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                directionToContact();
-
+                openDirectionToContact();
             }
         });
     }
@@ -129,7 +121,7 @@ public class ContactActionController {
     /**
      * Show a marker where the selected contact lives and get the direction.
      */
-    private void directionToContact() {
+    private void openDirectionToContact() {
         Intent mapIntent = MapsActivity.newIntent(mContext, mContact.getName(), mContact.getAddress());
         mContext.startActivity(mapIntent);
     }
@@ -137,9 +129,9 @@ public class ContactActionController {
     /**
      * Visiting the website of the contact.
      */
-    private void websiteOfContact() {
+    private void openContactWebsite() {
         // Uri addresses must be preceded by 'http://'...
-        Uri website = Uri.parse("http://" + mContact.getWebsite().toString());
+        Uri website = Uri.parse("http://" + mContact.getWebsite());
         mIntent = new Intent(Intent.ACTION_VIEW, website);
         mContext.startActivity(mIntent);
     }
@@ -149,7 +141,7 @@ public class ContactActionController {
      */
     private void mailingContact() {
         mIntent = new Intent(Intent.ACTION_SEND);
-        mIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mContact.getMailAddress().toString()});
+        mIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mContact.getMailAddress()});
 
         // This sets the MIME type of your intent.
         // Since you aren't supposed to force any kind of behavior.
@@ -172,13 +164,16 @@ public class ContactActionController {
      * Dialing up the contact.
      */
     private void callContact() {
-
         mIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mContact.getPhoneNumber()));
-
         mContext.startActivity(mIntent);
 
     }
 
+    /***
+     * Show the ContactAction pop-up window with general actions
+     * @param contact
+     * @param adapter
+     */
     public void showContactActionPopUp(ContactBE contact, ContactRecyclerViewAdapter adapter) {
         mAdapter = adapter;
         mContact = contact;
@@ -191,6 +186,10 @@ public class ContactActionController {
         mDialog.show();
     }
 
+    /***
+     * Set current contact information
+     * @param contact
+     */
     public void updateContactInformation(ContactBE contact) {
         mContact = contact;
         txtName.setText(mContact.getName());

@@ -12,7 +12,7 @@ import example.mathias.contactinformation.Database.ContactDBSchema.ContactTable;
 public class ContactBaseHelper extends SQLiteOpenHelper {
 
     // Sets the current version.
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
     // The name on the DB file.
     private static final String DATABASE_NAME = "contactBase.db";
 
@@ -37,6 +37,13 @@ public class ContactBaseHelper extends SQLiteOpenHelper {
         );
     }
 
+    /***
+     * If a newer version is detected of the DB, we will drop the table likes it's hot!
+     * Then recreate the DB
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + ContactTable.NAME);

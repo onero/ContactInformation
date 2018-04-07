@@ -23,8 +23,6 @@ import example.mathias.contactinformation.R;
 
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.RecycleHolder> {
 
-    private ContactActionController mContactActionController;
-
     // Stored Model from the outside.
     private ContactModel mContactModel;
     private ContactRecyclerViewAdapter mAdapter;
@@ -109,9 +107,9 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
         public void bind(ContactBE contact) {
             mContact = contact;
             mName.setText(mContact.getName());
-            Bitmap bitmap = null;
+            Bitmap bitmap;
             // Check for contact image
-            if (contact.getPicture().length() > 1) {
+            if (contact.hasPicture()) {
                 bitmap = PictureUtils.getScaledBitmap(contact.getPicture(), 150, 150);
             } else {
                 // Insert nice monkey!
@@ -129,8 +127,8 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
          */
         @Override
         public void onClick(View view) {
-            mContactActionController = new ContactActionController(view.getContext());
-            mContactActionController.showContactActionPopUp(mContact, mAdapter);
+            ContactActionController contactActionController = new ContactActionController(view.getContext());
+            contactActionController.showContactActionPopUp(mContact, mAdapter);
         }
     }
 }

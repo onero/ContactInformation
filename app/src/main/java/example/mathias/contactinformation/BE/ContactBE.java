@@ -32,6 +32,10 @@ public class ContactBE {
         mPicture = "";
     }
 
+    /***
+     * Overloaded constructor for retrieving contact from DB
+     * @param id
+     */
     public ContactBE(UUID id) {
         mId = id;
         mName = "";
@@ -113,7 +117,10 @@ public class ContactBE {
         mId = id;
     }
 
-
+    /***
+     * Check if the Picture location for the contact has been set
+     * @return true if there is a saved location string for the picture, else false
+     */
     public boolean hasPicture() {
         return mPicture != null && mPicture.length() > 1;
     }

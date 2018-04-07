@@ -106,7 +106,6 @@ public class ContactModel {
         String uuidString = contact.getId().toString();
         ContentValues values = getContentValues(contact);
 
-        // TODO ALH: Refactor to Database :P
         mDatabase.update(ContactTable.NAME, values,
                 ContactTable.Cols.UUID + " = ?",
                 new String [] {uuidString});

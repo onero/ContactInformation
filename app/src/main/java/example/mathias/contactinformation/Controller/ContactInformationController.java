@@ -32,7 +32,7 @@ public class ContactInformationController {
 
     private TextView txtClose;
     private Button btnSave, btnDelete;
-    private ImageView changePicture;
+    private ImageView contactPicture;
     private EditText editContactName, editPhoneNumber, editEmail, editWebsite, editAddress, editBirthday;
     private Dialog mDialog;
 
@@ -51,15 +51,10 @@ public class ContactInformationController {
         setInputTypes();
     }
 
-    private void setSelections() {
-        // TODO ALH: Remove unused?
-        editContactName.setSelection(editContactName.getText().length());
-        editPhoneNumber.setSelection(editPhoneNumber.getText().length());
-        editEmail.setSelection(editEmail.getText().length());
-        editWebsite.setSelection(editWebsite.getText().length());
-        editAddress.setSelection(editAddress.getText().length());
-    }
-
+    /**
+     * Helper method to set input type of fields
+     * and to ensure correct behavior of "enter" button
+     */
     private void setInputTypes() {
         //Name
         editContactName.setInputType(InputType.TYPE_CLASS_TEXT |
@@ -94,7 +89,7 @@ public class ContactInformationController {
         // TextView
         txtClose = mDialog.findViewById(R.id.txtClose);
         // ImageView
-        changePicture = mDialog.findViewById(R.id.changePicture);
+        contactPicture = mDialog.findViewById(R.id.changePicture);
         // EditText
         editContactName = mDialog.findViewById(R.id.editContactName);
         editPhoneNumber = mDialog.findViewById(R.id.editPhoneNumber);
@@ -108,7 +103,6 @@ public class ContactInformationController {
      * Sets Click Listeners on all the clickable views in the PopUp.
      */
     private void setOnClickListeners() {
-
         // Close
         txtClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,34 +142,12 @@ public class ContactInformationController {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alert(view.getContext());
+                createDeleteAlert(view.getContext());
             }
         });
-
-        // Change picture
-        changePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mContact.hasPicture()) {
-                    ContactListActivity mainContext = (ContactListActivity) ContactListActivity.sContext;
-                    mainContext.startCameraActivity(mContact.getPicture());
-                }
-            }
-        });
-
-
     }
 
-    /***
-     * Set the contact image to be displayed
-     * @param imageLocation
-     */
-    public void setContactImage(String imageLocation) {
-        Bitmap bitmap = PictureUtils.getScaledBitmap(imageLocation, 150, 150);
-        changePicture.setImageBitmap(bitmap);
-    }
-
-    private void alert(Context context) {
+    private void createDeleteAlert(Context context) {
         mContext = context;
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_DARK);
         mBuilder.setIcon(android.R.drawable.ic_menu_delete);
@@ -208,6 +180,13 @@ public class ContactInformationController {
         alertDialog.show();
     }
 
+    /***
+     * Show contact information
+     * @param contact to display
+     * @param outerDialog which wraps the inner contact information
+     * @param adapter which should receive contact information
+     * @param contactActionController
+     */
     public void showInfo(ContactBE contact, Dialog outerDialog, ContactRecyclerViewAdapter adapter, ContactActionController contactActionController) {
         mContactActionController = contactActionController;
         mAdapter = adapter;
@@ -221,6 +200,9 @@ public class ContactInformationController {
         mDialog.show();
     }
 
+    /**
+     * Helper method to fill in contact information
+     */
     private void setContactInformation() {
         editContactName.setText(mContact.getName());
         editAddress.setText(mContact.getAddress());
@@ -230,11 +212,14 @@ public class ContactInformationController {
         editBirthday.setText(mContact.getBirthDay());
         if (mContact.hasPicture()) {
             Bitmap bitmap = PictureUtils.getScaledBitmap(mContact.getPicture(), 150, 150);
-            changePicture.setImageBitmap(bitmap);
+            contactPicture.setImageBitmap(bitmap);
         }
-        setSelections();
     }
 
+    /**
+     * Delete current contact
+     * @param context
+     */
     private void deleteContact(Context context) {
         if (mContact.hasPicture()) {
             File image = new File(mContact.getPicture());
@@ -245,6 +230,9 @@ public class ContactInformationController {
         ContactModel.get(context).deleteContact(mContact.getId());
     }
 
+    /**
+     * Close current window
+     */
     private void closeInformationController() {
         mDialog.dismiss();
     }

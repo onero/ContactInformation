@@ -35,7 +35,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-import example.mathias.contactinformation.BE.ContactBE;
 import example.mathias.contactinformation.R;
 
 
@@ -45,14 +44,15 @@ public class MapsActivity extends FragmentActivity
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    // Gets the currenct location of the user.
-    private final String CURRENT_LOCATION = "My location";
+    // Gets the current location of the user.
+    private static final String CURRENT_LOCATION = "My location";
     // If user don't agree to permission is denied text will appear.
-    private final String PERMISSION_DENIED = "Permission denied..!";
+    private static final String PERMISSION_DENIED = "Permission denied..!";
     // The radius of the map shown for the user.
-    private final int ZOOM_AREA = 14;
+    private static final int ZOOM_AREA = 14;
     public static final int REQUEST_LOCATION_CODE = 99;
 
+    // Intent specific EXTRAS
     public static final String EXTRA_CONTACT_NAME = "example.mathias.contactinformation.contact.name";
     public static final String EXTRA_CONTACT_ADDRESS = "example.mathias.contactinformation.contact.address";
 
@@ -68,8 +68,7 @@ public class MapsActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-
-        // Checks the version of googleMap.
+        // Checks the Android build version.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
@@ -243,8 +242,6 @@ public class MapsActivity extends FragmentActivity
      */
     @Override
     public void onLocationChanged(Location location) {
-        Location lastLocation = location;
-
         if (mCurrentLocationMarker != null) {
             mCurrentLocationMarker.remove();
         }

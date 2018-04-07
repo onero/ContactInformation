@@ -46,6 +46,10 @@ public class AddContactController {
         setInputTypes();
     }
 
+    /**
+     * Helper method to set input type of fields
+     * and to ensure correct behavior of "enter" button
+     */
     private void setInputTypes() {
         //Name
         addContactName.setInputType(InputType.TYPE_CLASS_TEXT |
@@ -71,13 +75,9 @@ public class AddContactController {
         addAddress.setInputType(InputType.TYPE_CLASS_TEXT |
                 InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
         addAddress.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-        // TODO ALH: Display Birthday
-
     }
 
     private void setOnClickListeners() {
-
         // Close
         txtCloseAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +116,7 @@ public class AddContactController {
         addPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Due to current implementation, camera must be started from ContactListActivity
                 ContactListActivity mainContext = (ContactListActivity) mContext;
                 mainContext.startCameraActivity();
             }
@@ -133,7 +134,6 @@ public class AddContactController {
     }
 
     private void findViewsByIds() {
-
         // Button
         btnSaveNewContact = mDialog.findViewById(R.id.btnSaveNewContact);
         // TextView
@@ -150,6 +150,10 @@ public class AddContactController {
 
     }
 
+    /***
+     * Displays the pop-up window with information for adding a new contact
+     * @param adapter
+     */
     public void showAddContactPopUp(ContactRecyclerViewAdapter adapter) {
         mAdapter = adapter;
         mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
