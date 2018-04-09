@@ -152,7 +152,7 @@ public class ContactInformationController implements ICameraEventListener {
             @Override
             public void onClick(View v) {
                 ContactListActivity mainActivity = (ContactListActivity) mMainContext;
-                mainActivity.startCameraActivity();
+                mainActivity.startCameraActivity(mContact.getPicture());
             }
         });
     }

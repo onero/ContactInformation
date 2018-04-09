@@ -147,6 +147,17 @@ public class ContactListActivity extends AppCompatActivity {
         startActivityForResult(captureImage, REQUEST_CODE_CAMERA_ADD);
     }
 
+    /***
+     * Start the camera activity with pre-defined image location
+     * Remarks: Due to current implementation, the camera must be started from this controller
+     */
+    public void startCameraActivity(String imageLocation) {
+        Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mPhotoFile = new File(imageLocation);
+        captureImage.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhotoFile));
+        startActivityForResult(captureImage, REQUEST_CODE_CAMERA_ADD);
+    }
+
     /**
      * Add listener
      *
