@@ -23,7 +23,7 @@ import example.mathias.contactinformation.R;
  * Created by Skovgaard on 28-03-2018.
  */
 
-public class AddContactController implements ICameraEventListener {
+public class AddContactPopupController implements ICameraEventListener {
 
     private TextView txtCloseAddContact;
     private Button btnSaveNewContact;
@@ -35,7 +35,7 @@ public class AddContactController implements ICameraEventListener {
     private Context mContext;
     private String mImageLocation;
 
-    public AddContactController(Context context) {
+    public AddContactPopupController(Context context) {
 
         mDialog = new Dialog(context);
         mDialog.setContentView(R.layout.add_contact_pop_up);

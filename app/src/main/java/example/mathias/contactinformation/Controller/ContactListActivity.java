@@ -178,7 +178,7 @@ public class ContactListActivity extends AppCompatActivity {
      * Add a Contact.
      */
     private void addContact() {
-        AddContactController addContactController = new AddContactController(this);
+        AddContactPopupController addContactController = new AddContactPopupController(this);
         addContactController.showAddContactPopUp(adapter);
         setCameraEventListener(addContactController);
     }

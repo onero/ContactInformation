@@ -130,7 +130,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
          */
         @Override
         public void onClick(View view) {
-            ContactActionController contactActionController = new ContactActionController(view.getContext(), mMainContext);
+            ContactActionPopupController contactActionController = new ContactActionPopupController(view.getContext(), mMainContext);
             contactActionController.showContactActionPopUp(mContact, mAdapter);
             ContactListActivity mainActivity = (ContactListActivity) mMainContext;
             mainActivity.setCameraEventListener(contactActionController);

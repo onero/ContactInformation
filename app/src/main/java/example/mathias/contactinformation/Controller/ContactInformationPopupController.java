@@ -28,7 +28,7 @@ import example.mathias.contactinformation.R;
  * Created by Skovgaard on 27-03-2018.
  */
 
-public class ContactInformationController implements ICameraEventListener {
+public class ContactInformationPopupController implements ICameraEventListener {
 
     private TextView txtClose;
     private Button btnSave, btnDelete;
@@ -40,9 +40,9 @@ public class ContactInformationController implements ICameraEventListener {
     private Context mContext, mMainContext;
     private Dialog mOuterDialog;
     private ContactRecyclerViewAdapter mAdapter;
-    private ContactActionController mContactActionController;
+    private ContactActionPopupController mContactActionController;
 
-    public ContactInformationController(Context context, Context mainContext) {
+    public ContactInformationPopupController(Context context, Context mainContext) {
         mDialog = new Dialog(context);
         mDialog.setContentView(R.layout.information_pop_up);
         mMainContext = mainContext;
@@ -202,7 +202,7 @@ public class ContactInformationController implements ICameraEventListener {
      * @param adapter which should receive contact information
      * @param contactActionController
      */
-    public void showInfo(ContactBE contact, Dialog outerDialog, ContactRecyclerViewAdapter adapter, ContactActionController contactActionController) {
+    public void showInfo(ContactBE contact, Dialog outerDialog, ContactRecyclerViewAdapter adapter, ContactActionPopupController contactActionController) {
         mContactActionController = contactActionController;
         mAdapter = adapter;
         if (contact != null) {

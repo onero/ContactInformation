@@ -20,25 +20,25 @@ import example.mathias.contactinformation.R;
  * Created by Mathias on 27/03/2018.
  */
 
-public class ContactActionController implements ICameraEventListener {
+public class ContactActionPopupController implements ICameraEventListener {
 
     private TextView txtClose, txtName, txtInfo;
     private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
     private ImageView imgContact;
     private Dialog mDialog;
-    private ContactInformationController info;
+    private ContactInformationPopupController info;
     private ContactBE mContact;
     private ContactRecyclerViewAdapter mAdapter;
-    private ContactActionController mContactActionController;
+    private ContactActionPopupController mContactActionController;
     private Context mContext, mMainContext;
     private Intent mIntent;
 
-    public ContactActionController(Context context, Context mainContext) {
+    public ContactActionPopupController(Context context, Context mainContext) {
         mMainContext = mainContext;
         mContext = context;
         mContactActionController = this;
         mDialog = new Dialog(context);
-        mDialog.setContentView(R.layout.details_pop_up);
+        mDialog.setContentView(R.layout.ContactActionPopup);
 
         findViewsByIds();
         setOnClickListeners();
@@ -72,7 +72,7 @@ public class ContactActionController implements ICameraEventListener {
         txtInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                info = new ContactInformationController(view.getContext(), mMainContext);
+                info = new ContactInformationPopupController(view.getContext(), mMainContext);
                 info.showInfo(mContact, mDialog, mAdapter, mContactActionController);
                 ContactListActivity mainActivity = (ContactListActivity) mMainContext;
                 mainActivity.setCameraEventListener(info);
