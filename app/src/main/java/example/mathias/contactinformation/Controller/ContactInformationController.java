@@ -136,6 +136,7 @@ public class ContactInformationController implements ICameraEventListener {
                 mAdapter.notifyDataSetChanged();
 
                 Toast.makeText(view.getContext(), "Saved!", Toast.LENGTH_LONG).show();
+                closeInformationController();
             }
         });
 
