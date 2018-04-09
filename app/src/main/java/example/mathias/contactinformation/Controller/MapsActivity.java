@@ -177,9 +177,6 @@ public class MapsActivity extends FragmentActivity
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
-
-        contactMarker();
-
     }
 
     /**
@@ -221,6 +218,7 @@ public class MapsActivity extends FragmentActivity
                 e.printStackTrace();
             }
         }
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_AREA));
     }
 
     /**
@@ -246,12 +244,12 @@ public class MapsActivity extends FragmentActivity
             mCurrentLocationMarker.remove();
         }
         // Gets the latitude and longitude of current position.
-        LatLng latitudeAndLongitude = new LatLng(location.getLatitude(), location.getLongitude());
+        LatLng currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
 
         MarkerOptions markerOptions = new MarkerOptions();
 
         // Sets the position on the marker.
-        markerOptions.position(latitudeAndLongitude);
+        markerOptions.position(currentPosition);
         // Info on the marker.
         markerOptions.title(CURRENT_LOCATION);
         // The color of the marker
@@ -265,10 +263,10 @@ public class MapsActivity extends FragmentActivity
             LocationServices.FusedLocationApi.removeLocationUpdates(mClient, this);
         }
         // Moves the camera to your current position.
-//        mMap.animateCamera(CameraUpdateFactory.newLatLng(latitudeAndLongitude));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latitudeAndLongitude));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(ZOOM_AREA));
 
+        contactMarker();
     }
 
     /**
