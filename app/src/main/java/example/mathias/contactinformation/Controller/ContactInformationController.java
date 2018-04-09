@@ -28,7 +28,7 @@ import example.mathias.contactinformation.R;
  * Created by Skovgaard on 27-03-2018.
  */
 
-public class ContactInformationController {
+public class ContactInformationController implements ICameraEventListener {
 
     private TextView txtClose;
     private Button btnSave, btnDelete;
@@ -37,14 +37,15 @@ public class ContactInformationController {
     private Dialog mDialog;
 
     private ContactBE mContact;
-    private Context mContext;
+    private Context mContext, mMainContext;
     private Dialog mOuterDialog;
     private ContactRecyclerViewAdapter mAdapter;
     private ContactActionController mContactActionController;
 
-    public ContactInformationController(Context context) {
+    public ContactInformationController(Context context, Context mainContext) {
         mDialog = new Dialog(context);
         mDialog.setContentView(R.layout.information_pop_up);
+        mMainContext = mainContext;
 
         findViewsByIds();
         setOnClickListeners();
@@ -135,6 +136,7 @@ public class ContactInformationController {
                 mAdapter.notifyDataSetChanged();
 
                 Toast.makeText(view.getContext(), "Saved!", Toast.LENGTH_LONG).show();
+                closeInformationController();
             }
         });
 
@@ -143,6 +145,15 @@ public class ContactInformationController {
             @Override
             public void onClick(View view) {
                 createDeleteAlert(view.getContext());
+            }
+        });
+
+        // Change contacts image
+        contactPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContactListActivity mainActivity = (ContactListActivity) mMainContext;
+                mainActivity.startCameraActivity(mContact.getPicture());
             }
         });
     }
@@ -211,13 +222,18 @@ public class ContactInformationController {
         editWebsite.setText(mContact.getWebsite());
         editBirthday.setText(mContact.getBirthDay());
         if (mContact.hasPicture()) {
-            Bitmap bitmap = PictureUtils.getScaledBitmap(mContact.getPicture(), 150, 150);
-            contactPicture.setImageBitmap(bitmap);
+            setContactImage();
         }
+    }
+
+    private void setContactImage() {
+        Bitmap bitmap = PictureUtils.getScaledBitmap(mContact.getPicture(), 150, 150);
+        contactPicture.setImageBitmap(bitmap);
     }
 
     /**
      * Delete current contact
+     *
      * @param context
      */
     private void deleteContact(Context context) {
@@ -235,5 +251,11 @@ public class ContactInformationController {
      */
     private void closeInformationController() {
         mDialog.dismiss();
+    }
+
+    @Override
+    public void onContactImageUpdated(String newImageLocation) {
+        mContact.setPicture(newImageLocation);
+        setContactImage();
     }
 }

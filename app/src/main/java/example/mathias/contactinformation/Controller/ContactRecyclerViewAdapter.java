@@ -1,5 +1,6 @@
 package example.mathias.contactinformation.Controller;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -26,14 +27,16 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     // Stored Model from the outside.
     private ContactModel mContactModel;
     private ContactRecyclerViewAdapter mAdapter;
+    private Context mMainContext;
 
     /**
      * Constructor for getting the model from the outside.
      *
      * @param contactModel
      */
-    public ContactRecyclerViewAdapter(ContactModel contactModel) {
+    public ContactRecyclerViewAdapter(Context mainContext, ContactModel contactModel) {
         mContactModel = contactModel;
+        mMainContext = mainContext;
         mAdapter = this;
     }
 
@@ -127,8 +130,10 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
          */
         @Override
         public void onClick(View view) {
-            ContactActionController contactActionController = new ContactActionController(view.getContext());
+            ContactActionController contactActionController = new ContactActionController(view.getContext(), mMainContext);
             contactActionController.showContactActionPopUp(mContact, mAdapter);
-        }
+            ContactListActivity mainActivity = (ContactListActivity) mMainContext;
+            mainActivity.setCameraEventListener(contactActionController);
+    }
     }
 }

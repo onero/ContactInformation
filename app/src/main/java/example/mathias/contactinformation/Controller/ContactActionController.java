@@ -20,7 +20,7 @@ import example.mathias.contactinformation.R;
  * Created by Mathias on 27/03/2018.
  */
 
-public class ContactActionController {
+public class ContactActionController implements ICameraEventListener {
 
     private TextView txtClose, txtName, txtInfo;
     private LinearLayout txtCall, txtSms, txtMail, txtWeb, txtDirection;
@@ -30,11 +30,11 @@ public class ContactActionController {
     private ContactBE mContact;
     private ContactRecyclerViewAdapter mAdapter;
     private ContactActionController mContactActionController;
-    private Context mContext;
+    private Context mContext, mMainContext;
     private Intent mIntent;
 
-    public ContactActionController(Context context) {
-
+    public ContactActionController(Context context, Context mainContext) {
+        mMainContext = mainContext;
         mContext = context;
         mContactActionController = this;
         mDialog = new Dialog(context);
@@ -72,8 +72,10 @@ public class ContactActionController {
         txtInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                info = new ContactInformationController(view.getContext());
+                info = new ContactInformationController(view.getContext(), mMainContext);
                 info.showInfo(mContact, mDialog, mAdapter, mContactActionController);
+                ContactListActivity mainActivity = (ContactListActivity) mMainContext;
+                mainActivity.setCameraEventListener(info);
             }
         });
 
@@ -179,11 +181,15 @@ public class ContactActionController {
         mContact = contact;
         txtName.setText(contact.getName());
         if (mContact.hasPicture()) {
-            Bitmap bitmap = PictureUtils.getScaledBitmap(mContact.getPicture(), 150, 150);
-            imgContact.setImageBitmap(bitmap);
+            setContactImage();
         }
         mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mDialog.show();
+    }
+
+    private void setContactImage() {
+        Bitmap bitmap = PictureUtils.getScaledBitmap(mContact.getPicture(), 150, 150);
+        imgContact.setImageBitmap(bitmap);
     }
 
     /***
@@ -193,5 +199,11 @@ public class ContactActionController {
     public void updateContactInformation(ContactBE contact) {
         mContact = contact;
         txtName.setText(mContact.getName());
+    }
+
+    @Override
+    public void onContactImageUpdated(String newImageLocation) {
+        mContact.setPicture(newImageLocation);
+        setContactImage();
     }
 }

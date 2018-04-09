@@ -17,6 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import example.mathias.contactinformation.Model.ContactModel;
@@ -41,8 +43,9 @@ public class ContactListActivity extends AppCompatActivity {
     // Stored RecyclerView.
     private RecyclerView recyclerView;
 
-    // External Controller references
-    private AddContactController mAddContactController;
+
+    // Listeners for camera specific events
+    private List<ICameraEventListener> mCameraEventListeners;
 
     /**
      * Instanciation of Context, Dialog, RecyclerView and RecyclerViewAdapter.
@@ -65,7 +68,7 @@ public class ContactListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Incredible recyclerview adapter
-        adapter = new ContactRecyclerViewAdapter(ContactModel.get(this));
+        adapter = new ContactRecyclerViewAdapter(this, ContactModel.get(this));
         recyclerView.setAdapter(adapter);
     }
 
@@ -118,7 +121,13 @@ public class ContactListActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_CODE_CAMERA_ADD:
                 if (mPhotoFile.exists()) {
-                    mAddContactController.setContactImage(mPhotoFile.getPath());
+                    if (mCameraEventListeners != null) {
+                        // For each listener we have for camera events
+                        for (ICameraEventListener listener : mCameraEventListeners) {
+                            // Inform them of the updated picture!
+                            listener.onContactImageUpdated(mPhotoFile.getPath());
+                        }
+                    }
                 }
                 break;
             default:
@@ -138,12 +147,40 @@ public class ContactListActivity extends AppCompatActivity {
         startActivityForResult(captureImage, REQUEST_CODE_CAMERA_ADD);
     }
 
+    /***
+     * Start the camera activity with pre-defined image location
+     * Remarks: Due to current implementation, the camera must be started from this controller
+     */
+    public void startCameraActivity(String imageLocation) {
+        Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        mPhotoFile = new File(imageLocation);
+        captureImage.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhotoFile));
+        startActivityForResult(captureImage, REQUEST_CODE_CAMERA_ADD);
+    }
+
+    /**
+     * Add listener
+     *
+     * @param listener
+     */
+    public void setCameraEventListener(ICameraEventListener listener) {
+        // Ensure the list is created
+        if (mCameraEventListeners == null) {
+            mCameraEventListeners = new ArrayList<>();
+        }
+        // Check if listener is already in list
+        if (!mCameraEventListeners.contains(listener)) {
+            mCameraEventListeners.add(listener);
+        }
+    }
+
     /**
      * Add a Contact.
      */
     private void addContact() {
-        mAddContactController = new AddContactController(this);
-        mAddContactController.showAddContactPopUp(adapter);
+        AddContactController addContactController = new AddContactController(this);
+        addContactController.showAddContactPopUp(adapter);
+        setCameraEventListener(addContactController);
     }
 
     /**
