@@ -38,7 +38,7 @@ public class ContactActionPopupController implements ICameraEventListener {
         mContext = context;
         mContactActionController = this;
         mDialog = new Dialog(context);
-        mDialog.setContentView(R.layout.ContactActionPopup);
+        mDialog.setContentView(R.layout.contact_action_popup);
 
         findViewsByIds();
         setOnClickListeners();
