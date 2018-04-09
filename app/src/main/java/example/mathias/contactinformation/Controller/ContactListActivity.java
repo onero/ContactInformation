@@ -17,6 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import example.mathias.contactinformation.Model.ContactModel;
@@ -41,8 +43,9 @@ public class ContactListActivity extends AppCompatActivity {
     // Stored RecyclerView.
     private RecyclerView recyclerView;
 
-    // External Controller references
-    private AddContactController mAddContactController;
+
+    // Listeners for camera specific events
+    private List<ICameraEventListener> mCameraEventListeners;
 
     /**
      * Instanciation of Context, Dialog, RecyclerView and RecyclerViewAdapter.
@@ -65,7 +68,7 @@ public class ContactListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Incredible recyclerview adapter
-        adapter = new ContactRecyclerViewAdapter(ContactModel.get(this));
+        adapter = new ContactRecyclerViewAdapter(this, ContactModel.get(this));
         recyclerView.setAdapter(adapter);
     }
 
@@ -118,7 +121,13 @@ public class ContactListActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_CODE_CAMERA_ADD:
                 if (mPhotoFile.exists()) {
-                    mAddContactController.setContactImage(mPhotoFile.getPath());
+                    if (mCameraEventListeners != null) {
+                        // For each listener we have for camera events
+                        for (ICameraEventListener listener : mCameraEventListeners) {
+                            // Inform them of the updated picture!
+                            listener.onContactImageUpdated(mPhotoFile.getPath());
+                        }
+                    }
                 }
                 break;
             default:
@@ -139,11 +148,26 @@ public class ContactListActivity extends AppCompatActivity {
     }
 
     /**
+     * Add listener
+     *
+     * @param listener
+     */
+    public void setCameraEventListener(ICameraEventListener listener) {
+        if (mCameraEventListeners == null) {
+            mCameraEventListeners = new ArrayList<>();
+        }
+        if (!mCameraEventListeners.contains(listener)) {
+            mCameraEventListeners.add(listener);
+        }
+    }
+
+    /**
      * Add a Contact.
      */
     private void addContact() {
-        mAddContactController = new AddContactController(this);
-        mAddContactController.showAddContactPopUp(adapter);
+        AddContactController addContactController = new AddContactController(this);
+        addContactController.showAddContactPopUp(adapter);
+        setCameraEventListener(addContactController);
     }
 
     /**

@@ -23,7 +23,7 @@ import example.mathias.contactinformation.R;
  * Created by Skovgaard on 28-03-2018.
  */
 
-public class AddContactController {
+public class AddContactController implements ICameraEventListener {
 
     private TextView txtCloseAddContact;
     private Button btnSaveNewContact;
@@ -123,16 +123,6 @@ public class AddContactController {
         });
     }
 
-    /***
-     * Set the contact image to be displayed
-     * @param imageLocation
-     */
-    public void setContactImage(String imageLocation) {
-        mImageLocation = imageLocation;
-        Bitmap bitmap = PictureUtils.getScaledBitmap(imageLocation, 150, 150);
-        addPicture.setImageBitmap(bitmap);
-    }
-
     private void findViewsByIds() {
         // Button
         btnSaveNewContact = mDialog.findViewById(R.id.btnSaveNewContact);
@@ -160,5 +150,11 @@ public class AddContactController {
         mDialog.show();
     }
 
+    @Override
+    public void onContactImageUpdated(String newImageLocation) {
+        mImageLocation = newImageLocation;
+        Bitmap bitmap = PictureUtils.getScaledBitmap(newImageLocation, 150, 150);
+        addPicture.setImageBitmap(bitmap);
+    }
 }
 
