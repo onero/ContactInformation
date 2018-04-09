@@ -59,7 +59,6 @@ public class MapsActivity extends FragmentActivity
     private GoogleMap mMap;
     private GoogleApiClient mClient;
     private LocationRequest mLocationRequest;
-    private EditText mTxtAddress, mTxtFriend;
     private Marker mCurrentLocationMarker;
 
 
@@ -86,12 +85,12 @@ public class MapsActivity extends FragmentActivity
     public void onClick(View view) {
         if (view.getId() == R.id.btnSearch) {
 
-            mTxtAddress = findViewById(R.id.txtAddress);
-            mTxtFriend = findViewById(R.id.txtFriend);
+            EditText txtAddress = findViewById(R.id.txtAddress);
+            EditText txtFriend = findViewById(R.id.txtFriend);
 
 
-            String location = mTxtAddress.getText().toString();
-            String friendMarker = mTxtFriend.getText().toString();
+            String location = txtAddress.getText().toString();
+            String friendMarker = txtFriend.getText().toString();
 
             MarkerOptions markerOptions = new MarkerOptions();
 
