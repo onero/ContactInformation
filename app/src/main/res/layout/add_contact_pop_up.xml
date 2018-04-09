@@ -14,9 +14,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <!--Save-->
         <Button
             android:id="@+id/btnSaveNewContact"
-            android:layout_width="wrap_content"
+            android:layout_width="55dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:background="@drawable/button_save"
@@ -26,6 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <!--Exit-->
         <TextView
             android:id="@+id/txtCloseAddContact"
             android:layout_width="30dp"

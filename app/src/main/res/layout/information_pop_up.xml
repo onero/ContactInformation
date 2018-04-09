@@ -9,11 +9,13 @@
               android:orientation="vertical"
               android:padding="5dp">
 
+    <!--Layount for buttons-->
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <!--Save-->
         <Button
             android:id="@+id/btnSave"
             style="?android:attr/buttonStyleSmall"
@@ -24,6 +26,7 @@
             android:textColor="@color/white"
             android:textSize="12sp"/>
 
+        <!--Delete-->
         <Button
             android:id="@+id/btnDelete"
             android:layout_width="143dp"
@@ -40,6 +43,7 @@
             app:layout_constraintStart_toEndOf="@+id/btnSave"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <!--Exit-->
         <TextView
             android:id="@+id/txtClose"
             android:layout_width="30dp"

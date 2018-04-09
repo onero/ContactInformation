@@ -33,4 +33,6 @@
     <string name="name_hint">Lars Bilde</string>
     <string name="contacts_map">Contacts Map</string>
     <string name="edit">Edit</string>
+    <string name="addressTitle">Title for the address</string>
+    <string name="mapAddress">Address</string>
 </resources>

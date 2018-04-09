@@ -15,6 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!--Edit-->
+
         <TextView
             android:id="@+id/txtInfo"
             android:layout_width="45dp"
@@ -26,6 +28,8 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <!--Exit-->
 
         <TextView
             android:id="@+id/txtClose"
@@ -48,6 +52,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!--Image-->
+
         <ImageView
             android:id="@+id/imgContact"
             android:layout_width="194dp"
@@ -56,8 +62,9 @@
             android:layout_marginTop="15dp"
             android:src="@raw/monkey"/>
 
-        <TextView
+        <!--Contact name-->
 
+        <TextView
             android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,12 +75,15 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
+        <!--Layout for buttons-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
+
+            <!--Call-->
 
             <LinearLayout
                 android:id="@+id/txtCall"
@@ -92,6 +102,8 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
+
+            <!--SMS-->
 
             <LinearLayout
                 android:id="@+id/txtSms"
@@ -113,6 +125,7 @@
 
         </LinearLayout>
 
+        <!--Mail-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -147,6 +160,8 @@
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
+            <!--Website-->
+
             <LinearLayout
                 android:id="@+id/txtWeb"
                 android:layout_width="0dp"
@@ -164,6 +179,8 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
+
+            <!--Direction-->
 
             <LinearLayout
                 android:id="@+id/txtDirection"
