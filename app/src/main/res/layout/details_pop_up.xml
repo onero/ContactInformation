@@ -17,11 +17,11 @@
 
         <TextView
             android:id="@+id/txtInfo"
-            android:layout_width="30dp"
+            android:layout_width="45dp"
             android:layout_height="30dp"
-            android:background="@drawable/circle_background"
+            android:background="@drawable/button_save"
             android:gravity="center"
-            android:text="@string/information"
+            android:text="@string/edit"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
