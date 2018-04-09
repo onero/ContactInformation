@@ -146,6 +146,14 @@ public class ContactInformationController implements ICameraEventListener {
                 createDeleteAlert(view.getContext());
             }
         });
+
+        contactPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContactListActivity mainActivity = (ContactListActivity) mMainContext;
+                mainActivity.startCameraActivity();
+            }
+        });
     }
 
     private void createDeleteAlert(Context context) {
