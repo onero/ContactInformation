@@ -4,8 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/blueDark">
 
+    <!--Contact name-->
     <TextView
         android:id="@+id/txtName"
         android:layout_width="0dp"
@@ -13,9 +15,11 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="Name"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/imgView"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--Image-->
     <ImageView
         android:id="@+id/imgView"
         android:layout_width="0dp"
@@ -26,11 +30,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
+    <!--Phone number-->
     <TextView
         android:id="@+id/txtPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:textColor="@color/white"
         android:layout_marginTop="24dp"
         android:text="Phone Number"
         app:layout_constraintStart_toEndOf="@+id/txtName"
