@@ -148,6 +148,7 @@ public class ContactInformationController implements ICameraEventListener {
             }
         });
 
+        // Change contacts image
         contactPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

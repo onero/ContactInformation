@@ -164,9 +164,11 @@ public class ContactListActivity extends AppCompatActivity {
      * @param listener
      */
     public void setCameraEventListener(ICameraEventListener listener) {
+        // Ensure the list is created
         if (mCameraEventListeners == null) {
             mCameraEventListeners = new ArrayList<>();
         }
+        // Check if listener is already in list
         if (!mCameraEventListeners.contains(listener)) {
             mCameraEventListeners.add(listener);
         }
